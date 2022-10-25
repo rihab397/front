@@ -2,14 +2,22 @@
   "name": "front",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://5ce2c23be3ced20014d35e3d.mockapi.io/api/todos",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^1.1.3",
+    "dotenv": "^16.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-redux": "^8.0.4",
+    "react-redux-toastr": "^7.6.10",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "react-toastify": "^9.0.8",
+    "reactstrap": "^9.1.4",
+    "redux": "^4.2.0",
+    "redux-saga": "^1.2.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -34,5 +42,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "web-vitals": "^3.0.4"
   }
 }
