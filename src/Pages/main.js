@@ -5,7 +5,7 @@ import {toastr} from 'react-redux-toastr'
 import {toast} from 'react-toastify'
 const mapStateToProps = (state, ownProps) => {
     return {
-        investors: state.investors
+        investors: state.investors  
     }
 }
 
