@@ -1,6 +1,7 @@
 import axios from "axios";
 import { call, takeEvery, put } from "redux-saga/effects";
 import * as type from "../Actions/investors"
+import Axios from '../../axiosInterceptor';
 
 
 async function callAPI({url,method,data}){
@@ -15,7 +16,7 @@ return await axios({
 function* callapi(action) {
     let x=action;
     try{
-        let result = yield axios.get("https://jsonplaceholder.typicode.com/todos/1");
+        let result = yield Axios.get("todos/1");
     //   console.log(result)
         yield put({type:type.FETCH_INVESTORS_SUCCESS,payload:result})
     }
