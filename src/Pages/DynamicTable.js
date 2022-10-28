@@ -16,13 +16,13 @@ export default function DynamicTable(props) {
     let [modalFlag,setModalFlag]=useState(false)
     let vendorData=useSelector((state)=>state.fetchVendor)
     useEffect(() => {
-        if(vendorData && vendorData.vendor.length){
-         setVendors(vendorData.vendor)
+        if(vendorData && vendorData.vendors && vendorData.vendors.length){
+         setVendors(vendorData.vendors)
         }
      }, [])
     useEffect(() => {
-       if(vendorData && vendorData.vendor.length){
-        setVendors(vendorData.vendor)
+       if(vendorData && vendorData.vendors && vendorData.vendors.length){
+        setVendors(vendorData.vendors)
        }
     }, [vendorData])
     let dispatch=useDispatch()
