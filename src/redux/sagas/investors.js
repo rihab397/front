@@ -14,7 +14,7 @@ return await axios({
 }
 
 function* callapi(action) {
-    let x=action;
+    // let x=action;
     try{
         let result = yield Axios.get("todos/1");
     //   console.log(result)

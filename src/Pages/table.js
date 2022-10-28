@@ -4,6 +4,14 @@ import update from 'immutability-helper';
 import Axios from "./axiosInterceptor";
 import { Table, Button } from "reactstrap"
 import { useDispatch, useSelector } from "react-redux"
+import {
+    ProSidebar,
+    Menu,
+    MenuItem,
+    SidebarHeader,
+    SidebarFooter,
+    SidebarContent
+  } from "react-pro-sidebar";
 function App() {
   let [apiData, setapiData] = useState()
   let [investors, setinvestors] = useState();

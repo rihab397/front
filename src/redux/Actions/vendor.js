@@ -1,0 +1,2 @@
+export const SET_VENDORS="SET_VENDORS"
+export const GET_VENDORS="GET_VENDORS"
