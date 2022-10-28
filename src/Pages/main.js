@@ -3,6 +3,8 @@ import { useDispatch, useSelector, connect } from "react-redux"
 import * as types from "../redux/Actions/investors"
 import {toastr} from 'react-redux-toastr'
 import {toast} from 'react-toastify'
+import { useNavigate } from "react-router-dom"
+
 const mapStateToProps = (state, ownProps) => {
     return {
         investors: state.investors  
@@ -10,6 +12,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 function Main(props) {
+    let navigate=useNavigate()
     let [investors, setinvestors] = useState();
     let data = useSelector((investor) => investor.fetchinvestor)
     let dispatch = useDispatch();
@@ -20,6 +23,9 @@ function Main(props) {
         setinvestors(data.investors.data)
 
     }, [data])
+    useEffect(()=>{
+      navigate("/");
+    },[])
     // toastr.success("Success","data get successful")
 
     return (
