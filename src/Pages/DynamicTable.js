@@ -9,17 +9,17 @@ import { useSelector,useDispatch } from "react-redux";
 
 export default function DynamicTable(props) {
 
-    let tableJson = {
+    let [tableJson,setTableJson] = useState({
         initialField: [{ usercost: "usercost" }, { externalcost: "externalcost" }, { vendorcost: "vendorcost" }, { internalcost: "internalcost" }]
-    }
-    let [vendors, setVendors] = useState([{ name: "u1",isChange: false, disabled: true,cost:[] }, { name: "u2" , isChange: false, disabled: true,cost:[]}, { name: "u3",isChange: false, disabled: true,cost:[] }])
+    })
+    var [vendors, setVendors] = useState([{ name: "u1",isChange: false, disabled: true,cost:[] }, { name: "u2" , isChange: false, disabled: true,cost:[]}, { name: "u3",isChange: false, disabled: true,cost:[] }])
     let [modalFlag,setModalFlag]=useState(false)
     let vendorData=useSelector((state)=>state.fetchVendor)
-    useEffect(() => {
-        if(vendorData && vendorData.vendors && vendorData.vendors.length){
-         setVendors(vendorData.vendors)
-        }
-     }, [])
+    // useEffect(() => {
+    //     if(vendorData && vendorData.vendors && vendorData.vendors.length){
+    //      setVendors(vendorData.vendors)
+    //     }
+    //  }, [])
     useEffect(() => {
        if(vendorData && vendorData.vendors && vendorData.vendors.length){
         setVendors(vendorData.vendors)
@@ -68,9 +68,23 @@ export default function DynamicTable(props) {
         }
 
         setVendors(tempVendor2.data)
+        setTableJson(tableJson)
         dispatch({type:types.SET_VENDORS,payload:tempVendor2.data})
     }
-
+function returnControl(vendors,val) {
+    return(
+        vendors.map((val2, i) => (
+            <td><input type="text"
+                className="form-control"
+                value={val2.value}
+                style={{ outline: "none", border: "none" }}
+                disabled={val2.disabled ? true : false}
+                onChange={(e) => {
+                    disableField(i, 'name',parseInt( e.target.value),Object.values(val)[0])
+                }} /></td>
+        ))
+    )
+}
     return (
         <>
             {/* {JSON.stringify(vendors)} */}
@@ -117,18 +131,7 @@ export default function DynamicTable(props) {
                         <tr>
                             <td>{Object.keys(val)[0]}</td>
                             <td></td>
-                            {
-                                vendors.map((val2, i) => (
-                                    <td><input type="text"
-                                        className="form-control"
-                                        value={val2.value}
-                                        style={{ outline: "none", border: "none" }}
-                                        disabled={val2.disabled ? true : false}
-                                        onChange={(e) => {
-                                            disableField(i, 'name',parseInt( e.target.value),Object.values(val)[0])
-                                        }} /></td>
-                                ))
-                            }
+                            { vendors && vendors.length && returnControl(vendors,val)}
 
                         </tr>
                     ))
