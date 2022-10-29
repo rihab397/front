@@ -1,5 +1,6 @@
 import { Route,Routes, } from "react-router-dom";
 import DynamicTable from "../DynamicTable";
+import ApplicationForm from "../ApplicantForm";
 function Expenses() {
     return (
       <main style={{ padding: "1rem 0" }}>
@@ -20,5 +21,6 @@ export function Routers(params) {
         <Route path="/expenses" className="nav_link" element={<Expenses />} />
         <Route path="/invoices" className="nav_link" element={<Invoices />} />
         <Route path="/DynamicTable" className="nav_link" element={<DynamicTable />} />
+        <Route path="/ApplicationForm" className="nav_link" element={<ApplicationForm />} />
     </Routes>)
 }
