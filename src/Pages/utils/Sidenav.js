@@ -69,6 +69,10 @@ export default function Sidebar() {
                                 <i className='bx bx-user nav_icon'></i>
                                 <span className="nav_name">DynamicTable</span>
                             </NavLink>
+                            <NavLink className="nav_link" to="/ApplicationForm">
+                                <i className='bx bx-user nav_icon'></i>
+                                <span className="nav_name">ApplicationForm</span>
+                            </NavLink>
                         </div>
                     </div> <a href="#" className="nav_link"> <i className='bx bx-log-out nav_icon'></i> <span className="nav_name">SignOut</span> </a>
                 </nav>
