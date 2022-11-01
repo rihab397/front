@@ -11,7 +11,7 @@ export default function DynamicTable(props) {
 
     let [tableJson,setTableJson] = useState({
         initialField: [{ usercost: "usercost" }, { externalcost: "externalcost" }, { vendorcost: "vendorcost" }, { internalcost: "internalcost" }]
-    }
+    })
     let [vendors, setVendors] = useState([{ name: "u1",isChange: false, disabled: true,cost:[] }, { name: "u2" , isChange: false, disabled: true,cost:[]}, { name: "u3",isChange: false, disabled: true,cost:[] }])
     let [modalFlag,setModalFlag]=useState(false)
     let vendorData=useSelector((state)=>state.fetchVendor)
@@ -86,7 +86,7 @@ export default function DynamicTable(props) {
                                         val.isChange ? 
                                          vendors &&
                                             <input type="text"
-                                                value={returnVendorData(i,"name")}
+                                                // value={returnVendorData(i,"name")}
                                                 onChange={(e) => {
                                                     // vendors[i]["name"] = e.target.value;
                                                     // setVendors(vendors)

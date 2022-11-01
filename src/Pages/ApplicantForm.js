@@ -1,10 +1,31 @@
 // import { Table } from 'bootstrap'
 import { useState } from 'react'
-import { Row, Col, Table, Input } from 'reactstrap'
+import { Row, Col, Table, Input ,Card,CardBody, Button} from 'reactstrap'
 import update from "immutability-helper";
 import _ from "lodash";
 function ApplicationForm(props) {
-    var vendorform1 = [
+    var empoymentRowFormat=[
+        { type: "text", md: 3, label: "Organisation Name", name: "OrganisationName", validate: true },
+        { type: "text", md: 3, label: "Organisation Address", name: "OrganisationAddress", validate: true },
+        { type: "text", md: 3, label: "Employer Type", name: "EmployerType", validate: true },
+        { type: "text", md: 3, label: "Post Held", name: "PostHeld", validate: true },
+        { type: "text", md: 3, label: "Department", name: "Department", validate: true },
+        { type: "datetime-local", md: 3, label: "Start From", name: "From", validate: true },
+        { type: "datetime-local", md: 3, label: "To", name: "To", validate: true },
+        { type: "text", md: 3, label: "Experince Year", name: "ExperinceYear", validate: true },
+        { type: "text", md: 3, label: "Responsiblilites", name: "Responsiblilites", validate: true },
+    ]
+    var  QualificationRowFormat= [
+        { type: "text", md: 3, label: "Qualification", name: "Qualification", validate: true },
+        { type: "text", md: 3, label: "Collage/School Name", name: "Collage_School_Name", validate: true },
+        { type: "text", md: 3, label: "Qualification Name", name: "Qualification_Name", validate: true },
+        { type: "text", md: 3, label: "Univerersity Or Board", name: "UniverersityOrBoard", validate: true },
+        { type: "datetime-local", md: 3, label: "Passing Year", name: "Passing Year", validate: true },
+        { type: "Number", md: 3, label: "Percantage", name: "Percantage", validate: true },
+        { type: "text", md: 3, label: "Division", name: "Division", validate: true },
+        { type: "Multi2", md: 3, label: "Program", name: "Program", validate: true, options: [{ id: 1, label: "Regular", value: "Regular" }, { id: 1, label: "Part Time", value: "Part Time" }, { id: 1, label: "Full Time", value: "Full Time" }, { id: 1, label: "Correspondence", value: "Correspondence" },] },
+    ]
+    var [vendorform1,setVendorForm1] = useState( [
         // { set: true, type: "text", md: 3, label: "SAP ID", name: "SapId", function: "", sectionTilte: "General Information",  validate: true },
         { set: true, type: "text", md: 3, label: "First Name", name: "First_Name", function: "", validate: true },
         { set: true, type: "text", md: 3, label: "Middle Name", name: "Middle_Name", function: "", validate: true },
@@ -42,29 +63,10 @@ function ApplicationForm(props) {
         { set: true, type: "text", md: 3, label: "Mobile", name: "Mobile", function: "", Parent: "PermanentDetails", validate: true },
         { set: true, type: "text", md: 3, label: "Phone", name: "Phone", function: "", Parent: "PermanentDetails", validate: true },
         {
-            set: true, type: "text", SectionTitle: "Qualification", md: 12, label: "Qualification", name: "Qualification", function: "", validate: true, fields: [], intaialCount: 4, rowFormat: [
-                { type: "text", md: 3, label: "Qualification", name: "Qualification", validate: true },
-                { type: "text", md: 3, label: "Collage/School Name", name: "Collage_School_Name", validate: true },
-                { type: "text", md: 3, label: "Qualification Name", name: "Qualification_Name", validate: true },
-                { type: "text", md: 3, label: "Univerersity Or Board", name: "UniverersityOrBoard", validate: true },
-                { type: "datetime-local", md: 3, label: "Passing Year", name: "Passing Year", validate: true },
-                { type: "Number", md: 3, label: "Percantage", name: "Percantage", validate: true },
-                { type: "text", md: 3, label: "Division", name: "Division", validate: true },
-                { type: "Mutlti2", md: 3, label: "Program", name: "Program", validate: true, options: [{ id: 1, label: "Regular", value: "Regular" }, { id: 1, label: "Part Time", value: "Part Time" }, { id: 1, label: "Full Time", value: "Full Time" }, { id: 1, label: "Correspondence", value: "Correspondence" },] },
-            ]
+            set: true, type: "text", SectionTitle: "Qualification", md: 12, label: "Qualification", name: "Qualification", function: "", validate: true, fields: [], intaialCount: ["Matric","PostMatric","Graduation","PostGraduation"], rowFormat:QualificationRowFormat
         },
         {
-            set: true, type: "text", SectionTitle: "EmployementDetail", md: 12, label: "Qualification", name: "Qualification", function: "", validate: true, fields: [], intaialCount: 4, rowFormat: [
-                { type: "text", md: 3, label: "Organisation Name", name: "OrganisationName", validate: true },
-                { type: "text", md: 3, label: "Organisation Address", name: "OrganisationAddress", validate: true },
-                { type: "text", md: 3, label: "Employer Type", name: "EmployerType", validate: true },
-                { type: "text", md: 3, label: "Post Held", name: "PostHeld", validate: true },
-                { type: "text", md: 3, label: "Department", name: "Department", validate: true },
-                { type: "datetime-local", md: 3, label: "Start From", name: "From", validate: true },
-                { type: "datetime-local", md: 3, label: "To", name: "To", validate: true },
-                { type: "text", md: 3, label: "Experince Year", name: "ExperinceYear", validate: true },
-                { type: "text", md: 3, label: "Responsiblilites", name: "Responsiblilites", validate: true },
-            ]
+            set: true, type: "text", SectionTitle: "EmployementDetail", md: 12, label: "Qualification", name: "Qualification", function: "", validate: true, fields: [], intaialCount: ["Comapny1","Comapny2","Comapny3","Comapny4"], rowFormat: empoymentRowFormat
         },
         { type: "multi2", md: 8, SectionTitle: "Other Details", label: "Are you currently under service agreement/bond with your existing employer? ", name: "UnderServiceBond", validate: true, options: [{ id: 1, label: "true", value: true }, { id: 1, label: "false", value: false }] },
         { type: "multi2", md: 8, label: "Have you ever been charged or convicted for any criminal offense in India or abroad?", name: "CriminalCase", validate: true, options: [{ id: 1, label: "true", value: true }, { id: 1, label: "false", value: false }] },
@@ -75,7 +77,10 @@ function ApplicationForm(props) {
         { type: "file", md: 3, label: "Photograph", name: "Photograph", validate: true },
         { type: "file", md: 3, label: "Signature", name: "Signature", validate: true },
         { type: "file", md: 3, label: "Resume", name: "Resume", validate: true },
-    ]
+    ])
+
+
+   
 
     let [filtered, setFiltered] = useState({})
 
@@ -93,20 +98,25 @@ function ApplicationForm(props) {
          }
         else {
             final = update(filtered2, {
-              [SectionTitle]:{$push:[{[e.target.name]:e.target.value}]
+              [SectionTitle]:{
+                [i]:{
+                    [e.target.name]:{$set:e.target.value}
+                }
+                // $set:[{[e.target.name]:e.target.value}]
               }
             })
         }
+        setFiltered({...filtered2})
 
     }
 
     let returnControl = (v, i, SectionTitle) => {
         if ((v.type == "text") || (v.type == "Number") || (v.type == "textarea")) {
-            return (<Col md={v.md}>
+            return (<Col md={i?12: v.md}>
                 {
                     v.SectionTitle && <h1 style={{ backgrond: "grey" }}>{v.SectionTitle}</h1>
                 }
-                <label for={v.label}>{v.label}</label>
+              {!SectionTitle && !(i || i==0)  &&  <p><label for={v.label}>{v.label}</label></p>}
                 <input type={v.type}
                     name={v.name}
                     placeholder={v.label}
@@ -129,7 +139,7 @@ function ApplicationForm(props) {
                 {
                     v.SectionTitle && <h1 style={{ backgrond: "grey" }}>{v.SectionTitle}</h1>
                 }
-                <label for={v.label}>{v.label}</label>
+              {!SectionTitle && !(i || i==0)  &&   <p><label for={v.label}>{v.label}</label></p>}
                 <input type={v.type}
                     name={v.name}
                     placeholder={v.label}
@@ -145,7 +155,7 @@ function ApplicationForm(props) {
                 {
                     v.SectionTitle && <h1 style={{ backgrond: "grey" }}>{v.SectionTitle}</h1>
                 }
-                <label for={v.label}>{v.label}</label>
+               {!SectionTitle && !(i || i==0)  &&  <p><label for={v.label}>{v.label}</label></p>}
                 <select type={"select"}
                     name={v.name}
                     onChange={(e) => { setFiltered({ ...filtered, [e.target.name]: e.target.value }) }}
@@ -162,9 +172,9 @@ function ApplicationForm(props) {
         if (v.type == ("datetime-local")) {
             return (<Col md={v.md}>
                 {
-                    v.SectionTitle && <h1 style={{ backgrond: "grey" }}>{v.SectionTitle}</h1>
+                    v.SectionTitle  && <h1 style={{ backgrond: "grey" }}>{v.SectionTitle}</h1>
                 }
-                <label for={v.label}>{v.label}</label>
+                {!SectionTitle && !(i || i==0)  &&  <p><label for={v.label}>{v.label}</label></p>}
                 <input type={v.type}
                     name={v.name}
                     placeholder={v.label}
@@ -179,14 +189,14 @@ function ApplicationForm(props) {
     }
 
 
-    let returnRows = (intaialCount, rowFormat, SectionTitle) => {
+    let returnRows = (intaialCount, rowFormat, SectionTitle,i) => {
         // let TotalRows = []
         // for (let i = 0; i < intaialCount; i++) {
         //     TotalRows.push[rowFormat]
         // }
         return (<><tr>
             {
-                rowFormat.length && rowFormat.map((rowData, i) => {
+                rowFormat.length && rowFormat.map((rowData, index) => {
                     return (
 
                         <td>
@@ -203,7 +213,11 @@ function ApplicationForm(props) {
 
     let returnControls = (controlObj) => {
         if (controlObj.SectionTitle == "Qualification" || controlObj.SectionTitle == "EmployementDetail") {
-            return (<>
+           let arr=[]
+            for(let i=0;i<controlObj.intaialCount.length;i++){
+            arr.push(controlObj.rowFormat);
+            }
+            return (<Card className='bg-light'><CardBody>
                 {
                     controlObj.SectionTitle && <h1 style={{ backgrond: "grey" }}>{controlObj.SectionTitle}</h1>
                 }
@@ -214,9 +228,20 @@ function ApplicationForm(props) {
                         }</tr>
                     </tbody>
                     {
-                        returnRows(controlObj.intaialCount, controlObj.rowFormat, controlObj.SectionTitle)
+                        arr.map((controlObj2,i)=>{
+                            return(
+                                returnRows(controlObj2.intaialCount, controlObj2, controlObj.SectionTitle,i)
+                            )
+                        })
                     }
-                </Table></>)
+                </Table></CardBody>
+                
+                <Button onClick={()=>{
+                    let index=vendorform1.findIndex(val=>val.SectionTitle==controlObj.SectionTitle);
+                    vendorform1[index].intaialCount.push("new")
+                    setVendorForm1(vendorform1)
+                }}>Add</Button>
+                </Card>)
         }
         else {
             return returnControl(controlObj)
