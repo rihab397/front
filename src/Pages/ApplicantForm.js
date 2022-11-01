@@ -79,33 +79,46 @@ function ApplicationForm(props) {
 
     let [filtered, setFiltered] = useState({})
 
-    let setChildData=(i,SectionTitle,e)=>{
-  let filtered2=_.cloneDeep(filtered);
-  let final=update(filtered2,{
-    
-  })
-  
+    let setChildData = (i, SectionTitle, e) => {
+        let filtered2 = _.cloneDeep(filtered);
+        let final;
+        if (filtered && filtered[SectionTitle] && filtered[SectionTitle][i]) {
+            final = update(filtered2, {
+                [SectionTitle]:{
+                    [i]:{
+                        [e.target.name]:{$set:e.target.value}
+                    }
+                }
+              })
+         }
+        else {
+            final = update(filtered2, {
+              [SectionTitle]:{$push:[{[e.target.name]:e.target.value}]
+              }
+            })
+        }
+
     }
 
-    let  returnControl=(v,i,SectionTitle)=> {
-        if ((v.type == "text" )|| (v.type == "Number" )||(v.type ==  "textarea")) {
+    let returnControl = (v, i, SectionTitle) => {
+        if ((v.type == "text") || (v.type == "Number") || (v.type == "textarea")) {
             return (<Col md={v.md}>
                 {
                     v.SectionTitle && <h1 style={{ backgrond: "grey" }}>{v.SectionTitle}</h1>
                 }
                 <label for={v.label}>{v.label}</label>
                 <input type={v.type}
-                name={v.name}
+                    name={v.name}
                     placeholder={v.label}
                     required={v.validate}
-                    onChange={e =>{
-                        if(i,SectionTitle){
-                            setChildData(i,SectionTitle,e)
+                    onChange={e => {
+                        if (i, SectionTitle) {
+                            setChildData(i, SectionTitle, e)
                         }
-                        else{
+                        else {
                             setFiltered({ ...filtered, [e.target.name]: e.target.value })
                         }
-                        }}
+                    }}
                 />
                 <span>{v.error ? v.error : null}</span>
             </Col>)
@@ -116,9 +129,9 @@ function ApplicationForm(props) {
                 {
                     v.SectionTitle && <h1 style={{ backgrond: "grey" }}>{v.SectionTitle}</h1>
                 }
-                 <label for={v.label}>{v.label}</label>
+                <label for={v.label}>{v.label}</label>
                 <input type={v.type}
-                   name={v.name}
+                    name={v.name}
                     placeholder={v.label}
                     required={v.validate}
                     onChange={e => setFiltered({ ...filtered, [e.target.name]: e.target.files[0] })}
@@ -132,9 +145,9 @@ function ApplicationForm(props) {
                 {
                     v.SectionTitle && <h1 style={{ backgrond: "grey" }}>{v.SectionTitle}</h1>
                 }
-                 <label for={v.label}>{v.label}</label>
+                <label for={v.label}>{v.label}</label>
                 <select type={"select"}
-                   name={v.name}
+                    name={v.name}
                     onChange={(e) => { setFiltered({ ...filtered, [e.target.name]: e.target.value }) }}
                 >
                     {v.options.map((val) => (
@@ -145,15 +158,15 @@ function ApplicationForm(props) {
                 <span>{v.error ? v.error : null}</span>
             </Col>)
         }
-        
+
         if (v.type == ("datetime-local")) {
             return (<Col md={v.md}>
                 {
                     v.SectionTitle && <h1 style={{ backgrond: "grey" }}>{v.SectionTitle}</h1>
                 }
-                 <label for={v.label}>{v.label}</label>
+                <label for={v.label}>{v.label}</label>
                 <input type={v.type}
-                   name={v.name}
+                    name={v.name}
                     placeholder={v.label}
                     required={v.validate}
                     onChange={e => setFiltered({ ...filtered, [e.target.name]: e.target.value })}
@@ -161,59 +174,61 @@ function ApplicationForm(props) {
                 <span>{v.error ? v.error : null}</span>
             </Col>)
         }
-        
+
 
     }
 
 
-    let  returnRows=(intaialCount, rowFormat,SectionTitle) =>{
+    let returnRows = (intaialCount, rowFormat, SectionTitle) => {
         // let TotalRows = []
         // for (let i = 0; i < intaialCount; i++) {
         //     TotalRows.push[rowFormat]
         // }
         return (<><tr>
             {
-                rowFormat.length && rowFormat.map((rowData,i) => {return(
-                    
+                rowFormat.length && rowFormat.map((rowData, i) => {
+                    return (
+
                         <td>
                             {
-                                returnControl(rowData,i,SectionTitle)
+                                returnControl(rowData, i, SectionTitle)
                             }
                         </td>
-                    
-                )})
+
+                    )
+                })
             }
         </tr> </>)
     }
 
-    let returnControls=(controlObj)=> {
+    let returnControls = (controlObj) => {
         if (controlObj.SectionTitle == "Qualification" || controlObj.SectionTitle == "EmployementDetail") {
-           return(<>
-           {
+            return (<>
+                {
                     controlObj.SectionTitle && <h1 style={{ backgrond: "grey" }}>{controlObj.SectionTitle}</h1>
                 }
-            <Table>
-                <tbody>
-                    <tr> {
-                        controlObj.rowFormat.map((val,i) => <td>{val.label}</td>)
-                    }</tr>
-                </tbody>
-                {
-                    returnRows(controlObj.intaialCount, controlObj.rowFormat,controlObj.SectionTitle)
-                }
-            </Table></>)
+                <Table>
+                    <tbody>
+                        <tr> {
+                            controlObj.rowFormat.map((val, i) => <td>{val.label}</td>)
+                        }</tr>
+                    </tbody>
+                    {
+                        returnRows(controlObj.intaialCount, controlObj.rowFormat, controlObj.SectionTitle)
+                    }
+                </Table></>)
         }
         else {
-          return returnControl(controlObj)
+            return returnControl(controlObj)
         }
     }
 
 
 
     return (<>
-    {
-        JSON.stringify(filtered)
-    }
+        {
+            JSON.stringify(filtered)
+        }
         <Row><h1 style={{ textAlign: "center" }}>Application Form</h1></Row>
         <Row>
             {
