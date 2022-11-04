@@ -109,9 +109,10 @@ function ApplicationForm(props) {
         dispatch({ type: types.FETCH_STATES_REQUEST })
     }, [])
     let CityStates = useSelector((state) => state.fetchcitystates)
-    // useEffect(() => {
-    //     dispatch({ type: types.FETCH_STATES_REQUEST,payload:filtered["State"] })
-    // }, [filtered["ContactDetails"]["State"]])
+
+    function finalSubmit(){
+        dispatch({type:applicationActions.CAREER_APPLICATION_SUBMIT_SAGA_REQUEST,payload:filtered})
+    }
     let validate = () => {
         vendorform1.map((row, index) => {
             if (row.Parent && row.Parent !== "Guardian" && row.validate) {
@@ -173,6 +174,11 @@ console.log("this is last")
 useEffect(()=>{
     dispatch({type:applicationActions.CAREER_APPLICATION_SUBMIT_DATA,payload:filtered})
 },[filtered])
+
+let filterd= useSelector((state) => state.Carrer)
+useEffect(()=>{
+    if(filterd && Object.keys(filterd.Data).length) setFiltered(filterd.Data)
+},[])
 
     useEffect(() => {
         let states = CityStates.States;
@@ -472,7 +478,7 @@ useEffect(()=>{
                 }
             </Row></form><br />
         <Button className='btn btn-primary ml-5 position-absolute' onClick={() => validate()}>validate</Button>
-        <Button className='btn btn-primary ml-5 position-absolute' disabled={valid} onClick={() => validate()}>Submit</Button>
+        <Button className='btn btn-primary ml-5 position-absolute'  onClick={() =>finalSubmit()}>Submit</Button>
     </>)
 }
 export default ApplicationForm;

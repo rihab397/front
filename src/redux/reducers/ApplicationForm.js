@@ -1,22 +1,20 @@
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import * as types from "../Actions/ApplicationForm"
 
 const initialState = {
-    Data: [],
+    Data: {},
     error: '',
     msg: '',
 }
 
 
 export function Carrer(state = initialState, actions) {
-    let dispatch=useDispatch()
     switch (actions.type) {
         case types.CAREER_APPLICATION_SUBMIT_DATA: return {
             ...state,
             Data: actions.payload
         }
         case types.CAREER_APPLICATION_SUBMIT_REQUEST:{ 
-            dispatch({type:types.CAREER_APPLICATION_SUBMIT_SAGA_REQUEST,payload:state.Data})
             return {
             ...state,
         }

@@ -25,7 +25,8 @@ function* callapi(action) {
                     "Accept": "application/json",
                     'Access-Control-Allow-Origin' : '*',
                     'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
-                }
+                },
+                data:action.payload
             });
               
             yield put({ type: type.CAREER_APPLICATION_SUBMIT_SUCCESS, payload:result})
