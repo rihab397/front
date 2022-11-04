@@ -1,6 +1,11 @@
 // import { Table } from 'bootstrap'
+<<<<<<< HEAD
+import { useState } from 'react'
+import { Row, Col, Table, Input ,Card,CardBody, Button} from 'reactstrap'
+=======
 import { useEffect, useState } from 'react'
 import { Row, Col, Table, Input, Button } from 'reactstrap'
+>>>>>>> bd5c71abdc4b5cf444c98363b5c4ca6fb22e65ca
 import update from "immutability-helper";
 import _ from "lodash";
 import * as types from "../redux/Actions/CityStates"
@@ -32,7 +37,51 @@ let EmployementRowFormat = [
     { type: "text", md: 1, label: "Responsiblilites", name: "Responsiblilites", validate: true, disable: false, set: true },
 ];
 function ApplicationForm(props) {
+<<<<<<< HEAD
 
+=======
+<<<<<<< HEAD
+    var empoymentRowFormat=[
+        { type: "text", md: 3, label: "Organisation Name", name: "OrganisationName", validate: true },
+        { type: "text", md: 3, label: "Organisation Address", name: "OrganisationAddress", validate: true },
+        { type: "text", md: 3, label: "Employer Type", name: "EmployerType", validate: true },
+        { type: "text", md: 3, label: "Post Held", name: "PostHeld", validate: true },
+        { type: "text", md: 3, label: "Department", name: "Department", validate: true },
+        { type: "datetime-local", md: 3, label: "Start From", name: "From", validate: true },
+        { type: "datetime-local", md: 3, label: "To", name: "To", validate: true },
+        { type: "text", md: 3, label: "Experince Year", name: "ExperinceYear", validate: true },
+        { type: "text", md: 3, label: "Responsiblilites", name: "Responsiblilites", validate: true },
+    ]
+    var  QualificationRowFormat= [
+        { type: "text", md: 3, label: "Qualification", name: "Qualification", validate: true },
+        { type: "text", md: 3, label: "Collage/School Name", name: "Collage_School_Name", validate: true },
+        { type: "text", md: 3, label: "Qualification Name", name: "Qualification_Name", validate: true },
+        { type: "text", md: 3, label: "Univerersity Or Board", name: "UniverersityOrBoard", validate: true },
+        { type: "datetime-local", md: 3, label: "Passing Year", name: "Passing Year", validate: true },
+        { type: "Number", md: 3, label: "Percantage", name: "Percantage", validate: true },
+        { type: "text", md: 3, label: "Division", name: "Division", validate: true },
+        { type: "Multi2", md: 3, label: "Program", name: "Program", validate: true, options: [{ id: 1, label: "Regular", value: "Regular" }, { id: 1, label: "Part Time", value: "Part Time" }, { id: 1, label: "Full Time", value: "Full Time" }, { id: 1, label: "Correspondence", value: "Correspondence" },] },
+    ]
+    var [vendorform1,setVendorForm1] = useState( [
+        // { set: true, type: "text", md: 3, label: "SAP ID", name: "SapId", function: "", sectionTilte: "General Information",  validate: true },
+        { set: true, type: "text", md: 3, label: "First Name", name: "First_Name", function: "", validate: true },
+        { set: true, type: "text", md: 3, label: "Middle Name", name: "Middle_Name", function: "", validate: true },
+        { set: true, type: "text", md: 3, label: "Last Name", name: "Last_Name", function: "", validate: true },
+        { set: true, type: "text", md: 3, label: "Former First Name", name: "Former_First_Name", function: "", validate: true },
+        { set: true, type: "text", md: 3, label: "Former Middle Name", name: "Former_Middle_Name", function: "", validate: true },
+        { set: true, type: "text", md: 3, label: "Former Last Name", name: "Former_Last_Name", function: "", validate: true },
+        { set: true, type: "multi2", md: 3, label: "Guardian", name: "Guardian", function: "", validate: true, options: [{ id: 0, label: "Husband", value: "Husband" }, { id: 1, label: "Father", value: "Father" }] },
+        { set: true, type: "datetime-local", md: 3, label: "Date Of Birth", name: "DOB", function: "", validate: true },
+        { set: true, type: "Number", md: 3, label: "Age", name: "Age", function: "", validate: true },
+        { set: true, type: "text", md: 3, label: "Gender", name: "Gender", function: "", validate: true },
+        { set: true, type: "text", md: 3, label: "Nationality", name: "Nationality", function: "", validate: true },
+        { set: true, type: "text", md: 3, label: "Martial Status", name: "MartialStatus", function: "", validate: true },
+        { set: true, type: "text", md: 3, label: "Mobile", name: "Mobile", function: "", validate: true },
+        { set: true, type: "text", md: 3, label: "Alternative Mobile Number ", name: "AlternativeMobile", function: "", validate: true },
+        { set: true, type: "text", md: 3, label: "Category", name: "Category", function: "", validate: true },
+=======
+    
+>>>>>>> b190aa790f1c811e4dca656c3f1d1c5d35422346
     var [vendorform1, setVendorform1] = useState([
         //disable:false { set: true, type: "text", md: 3, label: "SAP ID", name: "SapId", function: "", sectionTilte: "General Information",  validate: true },
         { disable: false, set: true, type: "text", md: 3, label: "Company Name", name: "Company_Name", function: "", validate: true },
@@ -55,7 +104,12 @@ function ApplicationForm(props) {
         { disable: false, set: true, type: "multi2", md: 3, label: "Martial Status", name: "MartialStatus", function: "", validate: true, options: [{ id: 0, label: "Married", value: "Married" }, { id: 1, label: "Unmarried", value: "Unmarried" },] },
         { disable: false, set: true, type: "text", md: 3, label: "Mobile", name: "Mobile", function: "", validate: true },
         { disable: false, set: true, type: "text", md: 3, label: "Alternative Mobile Number ", name: "AlternativeMobile", function: "", validate: true },
+<<<<<<< HEAD
         { disable: false, set: true, type: "multi2", md: 3, label: "Person Disabilities", name: "Person_Disabilities", function: "", validate: true, options: [{ id: 0, label: "Yes", value: "Yes" }, { id: 1, label: "No", value: "No" }] },
+=======
+        { disable: false, set: true, type: "text", md: 3, label: "Category", name: "Category", function: "", validate: true },
+>>>>>>> bd5c71abdc4b5cf444c98363b5c4ca6fb22e65ca
+>>>>>>> b190aa790f1c811e4dca656c3f1d1c5d35422346
         {
             disable: false, set: true, type: "multi2", md: 3, label: "Category", name: "Category", function: "", validate: true, options: [{ id: 1, label: "Genral", value: "Genral" },
             { id: 2, label: "SC", value: "SC" },
@@ -77,6 +131,26 @@ function ApplicationForm(props) {
         { disable: false, set: true, type: "text", md: 3, label: "Mobile", name: "Mobile", function: "", Parent: "PermanentDetails", validate: true },
         { disable: false, set: true, type: "text", md: 3, label: "Phone", name: "Phone", function: "", Parent: "PermanentDetails", validate: true },
         {
+<<<<<<< HEAD
+            set: true, type: "text", SectionTitle: "Qualification", md: 12, label: "Qualification", name: "Qualification", function: "", validate: true, fields: [], intaialCount: ["Matric","PostMatric","Graduation","PostGraduation"], rowFormat:QualificationRowFormat
+        },
+        {
+            set: true, type: "text", SectionTitle: "EmployementDetail", md: 12, label: "Qualification", name: "Qualification", function: "", validate: true, fields: [], intaialCount: ["Comapny1","Comapny2","Comapny3","Comapny4"], rowFormat: empoymentRowFormat
+        },
+        { type: "multi2", md: 8, SectionTitle: "Other Details", label: "Are you currently under service agreement/bond with your existing employer? ", name: "UnderServiceBond", validate: true, options: [{ id: 1, label: "true", value: true }, { id: 1, label: "false", value: false }] },
+        { type: "multi2", md: 8, label: "Have you ever been charged or convicted for any criminal offense in India or abroad?", name: "CriminalCase", validate: true, options: [{ id: 1, label: "true", value: true }, { id: 1, label: "false", value: false }] },
+        { type: "multi2", md: 8, label: "Are you related to anyone who works for IFCI Ltd/IFCI Group Campanies?", name: "ReltatedToIfci", validate: true, options: [{ id: 1, label: "true", value: true }, { id: 1, label: "false", value: false }] },
+        { type: "textarea", md: 3, label: "Academic Achievements", name: "AcademicAchievements", validate: true },
+        { type: "textarea", md: 3, label: "ProfessionalAchievements", name: "ProfessionalAchievements", validate: true },
+        { type: "datetime-local", md: 3, label: "JoiningTime", name: "JoiningTime", validate: true },
+        { type: "file", md: 3, label: "Photograph", name: "Photograph", validate: true },
+        { type: "file", md: 3, label: "Signature", name: "Signature", validate: true },
+        { type: "file", md: 3, label: "Resume", name: "Resume", validate: true },
+    ])
+
+
+   
+=======
             disable: false, set: true, type: "text", SectionTitle: "Qualification", md: 12, label: "Qualification", name: "Qualification", function: "", validate: true, fields: [], intaialCount: 4, rowFormat: [
                 { id: 0, Name: "Matric", rowData: QualificationRowformat },
                 { id: 1, Name: "PostMatric", rowData: QualificationRowformat },
@@ -103,7 +177,11 @@ function ApplicationForm(props) {
         { disable: false, set: true, type: "file", md: 3, label: "Resume", name: "Resume", validate: true },
     ])
     let dispatch = useDispatch()
+<<<<<<< HEAD
     let ExpreinceRequired=5;
+=======
+>>>>>>> bd5c71abdc4b5cf444c98363b5c4ca6fb22e65ca
+>>>>>>> b190aa790f1c811e4dca656c3f1d1c5d35422346
 
     let [filtered, setFiltered] = useState({})
     let [tempString, setTempString] = useState()
@@ -124,6 +202,7 @@ function ApplicationForm(props) {
                 if(filtered && filtered[row.Parent] &&filtered[row.Parent][row.name])  {
                     vendorform1[index]["error"] =false
                 }
+<<<<<<< HEAD
                 else{ 
                     vendorform1[index]["error"] =`Please fill the ${row.label} `
                     setVendorform1([...vendorform1])
@@ -164,6 +243,28 @@ function ApplicationForm(props) {
             document.getElementById("experienceError").innerHTML=`Expreince Should have atleast ${ExpreinceRequired} `
           }
         }
+=======
+            })
+        }
+        else {
+            final = update(filtered2, {
+<<<<<<< HEAD
+              [SectionTitle]:{
+                [i]:{
+                    [e.target.name]:{$set:e.target.value}
+                }
+                // $set:[{[e.target.name]:e.target.value}]
+              }
+=======
+                [SectionTitle]: {
+                    $push: [{ [e.target.name]: e.target.value }]
+                }
+>>>>>>> bd5c71abdc4b5cf444c98363b5c4ca6fb22e65ca
+            })
+        }
+        setFiltered({...filtered2})
+
+>>>>>>> b190aa790f1c811e4dca656c3f1d1c5d35422346
     }
 
     useEffect(() => {
@@ -201,6 +302,37 @@ function ApplicationForm(props) {
         if (v.Parent && v.Parent != "Guardian") {
             let temp = {};
             if (filtered2[v.Parent]) {
+<<<<<<< HEAD
+=======
+
+<<<<<<< HEAD
+    let returnControl = (v, i, SectionTitle) => {
+        if ((v.type == "text") || (v.type == "Number") || (v.type == "textarea")) {
+            return (<Col md={i?12: v.md}>
+                {
+                    v.SectionTitle && <h1 style={{ backgrond: "grey" }}>{v.SectionTitle}</h1>
+                }
+              {!SectionTitle && !(i || i==0)  &&  <p><label for={v.label}>{v.label}</label></p>}
+                <input type={v.type}
+                    name={v.name}
+                    placeholder={v.label}
+                    required={v.validate}
+                    onChange={e => {
+                        if (i, SectionTitle) {
+                            setChildData(i, SectionTitle, e)
+                        }
+                        else {
+                            setFiltered({ ...filtered, [e.target.name]: e.target.value })
+                        }
+                    }}
+                />
+                <span>{v.error ? v.error : null}</span>
+            </Col>)
+=======
+                // filtered2[v.Parent] = { ...filtered2[v.Parent], [e.target.name]: e.target.value }
+                // setFiltered({ ...filtered2 })
+
+>>>>>>> b190aa790f1c811e4dca656c3f1d1c5d35422346
                 let newd = update(filtered2, {
                     [v.Parent]: {
                         [e.target.name]: { $set: e.target.value }
@@ -323,6 +455,7 @@ function ApplicationForm(props) {
                         {v.error && <p className='text-danger'>{v.error}</p>}
                 
                 </Col>}</>)
+>>>>>>> bd5c71abdc4b5cf444c98363b5c4ca6fb22e65ca
         }
 
         if (v.type == ("file")) {
@@ -330,6 +463,17 @@ function ApplicationForm(props) {
                 {
                     v.SectionTitle && <Col md={12}><h2 className='bg-primary color-light'>{v.SectionTitle}</h2></Col>
                 }
+<<<<<<< HEAD
+              {!SectionTitle && !(i || i==0)  &&   <p><label for={v.label}>{v.label}</label></p>}
+                <input type={v.type}
+                    name={v.name}
+                    placeholder={v.label}
+                    required={v.validate}
+                    onChange={e => setFiltered({ ...filtered, [e.target.name]: e.target.files[0] })}
+                />
+                <span>{v.error ? v.error : null}</span>
+            </Col>)
+=======
                 <Col md={v.md}>{!SectionTitle && (!i || i == 0) && <Col><label for={v.label}>{v.label}</label></Col>}
                     <Col><input type={v.type}
                         name={v.name}
@@ -340,6 +484,7 @@ function ApplicationForm(props) {
                     /></Col>
                   {v.error && <p className='text-danger'>{v.error}</p>}
                 </Col></>)
+>>>>>>> bd5c71abdc4b5cf444c98363b5c4ca6fb22e65ca
         }
 
         if (v.type == ("multi2")) {
@@ -347,6 +492,20 @@ function ApplicationForm(props) {
                 {
                     v.SectionTitle && <Col md={12}><h2 className='bg-primary color-light'>{v.SectionTitle}</h2></Col>
                 }
+<<<<<<< HEAD
+               {!SectionTitle && !(i || i==0)  &&  <p><label for={v.label}>{v.label}</label></p>}
+                <select type={"select"}
+                    name={v.name}
+                    onChange={(e) => { setFiltered({ ...filtered, [e.target.name]: e.target.value }) }}
+                >
+                    {v.options.map((val) => (
+                        <option>{val.label}</option>
+                    ))
+                    }
+                </select>
+                <span>{v.error ? v.error : null}</span>
+            </Col>)
+=======
                 <Col md={v.md}>  {!SectionTitle && (!i || i == 0) && <Col><label for={v.label}>{v.label}</label></Col>}
                     <Col>  <select type={"select"}
                         name={v.name}
@@ -361,11 +520,25 @@ function ApplicationForm(props) {
                     {v.error && <p className='text-danger'>{v.error}</p>}
                     </Col>
                 </Col></>)
+>>>>>>> bd5c71abdc4b5cf444c98363b5c4ca6fb22e65ca
         }
 
         if (v.type == ("datetime-local")) {
             return (<>
                 {
+<<<<<<< HEAD
+                    v.SectionTitle  && <h1 style={{ backgrond: "grey" }}>{v.SectionTitle}</h1>
+                }
+                {!SectionTitle && !(i || i==0)  &&  <p><label for={v.label}>{v.label}</label></p>}
+                <input type={v.type}
+                    name={v.name}
+                    placeholder={v.label}
+                    required={v.validate}
+                    onChange={e => setFiltered({ ...filtered, [e.target.name]: e.target.value })}
+                />
+                <span>{v.error ? v.error : null}</span>
+            </Col>)
+=======
                     v.SectionTitle && <Col md={12}><h2 className='bg-primary color-light'>{v.SectionTitle}</h2></Col>
                 }
                 <Col md={v.md}> {!SectionTitle && (!i || i == 0) && <Col><label for={v.label}>{v.label}</label></Col>}
@@ -381,16 +554,32 @@ function ApplicationForm(props) {
                     /></Col>
                   {v.error && <p className='text-danger'>{v.error}</p>}
                 </Col></>)
+>>>>>>> bd5c71abdc4b5cf444c98363b5c4ca6fb22e65ca
         }
 
 
     }
 
 
+<<<<<<< HEAD
     let returnRows = (intaialCount, rowFormat, SectionTitle) => {
         return (<tr>
             {
                 rowFormat.length && rowFormat.map((Data, rowIndex) => {
+=======
+    let returnRows = (intaialCount, rowFormat, SectionTitle,i) => {
+        // let TotalRows = []
+        // for (let i = 0; i < intaialCount; i++) {
+        //     TotalRows.push[rowFormat]
+        // }
+        return (<><tr>
+            {
+<<<<<<< HEAD
+                rowFormat.length && rowFormat.map((rowData, index) => {
+                    return (
+=======
+                rowFormat.length && rowFormat.map((Data, i) => {
+>>>>>>> b190aa790f1c811e4dca656c3f1d1c5d35422346
                     return (<Row>
                         <Col md="1">{Data.Name && !Data.Name.includes("specify") ? Data.Name : <input className='form-control'
 
@@ -416,6 +605,7 @@ function ApplicationForm(props) {
                                     }
                                 </Col>
                             ))
+>>>>>>> bd5c71abdc4b5cf444c98363b5c4ca6fb22e65ca
 
                         }</Row>)
 
@@ -437,10 +627,37 @@ function ApplicationForm(props) {
     }
     let returnControls = (controlObj) => {
         if (controlObj.SectionTitle == "Qualification" || controlObj.SectionTitle == "EmployementDetail") {
-            return (<>
+           let arr=[]
+            for(let i=0;i<controlObj.intaialCount.length;i++){
+            arr.push(controlObj.rowFormat);
+            }
+            return (<Card className='bg-light'><CardBody>
                 {
                     controlObj.SectionTitle && <Col md="12"><h2 className='bg-primary color-light'>{controlObj.SectionTitle}</h2></Col>
                 }
+<<<<<<< HEAD
+                <Table>
+                    <tbody>
+                        <tr> {
+                            controlObj.rowFormat.map((val, i) => <td>{val.label}</td>)
+                        }</tr>
+                    </tbody>
+                    {
+                        arr.map((controlObj2,i)=>{
+                            return(
+                                returnRows(controlObj2.intaialCount, controlObj2, controlObj.SectionTitle,i)
+                            )
+                        })
+                    }
+                </Table></CardBody>
+                
+                <Button onClick={()=>{
+                    let index=vendorform1.findIndex(val=>val.SectionTitle==controlObj.SectionTitle);
+                    vendorform1[index].intaialCount.push("new")
+                    setVendorForm1(vendorform1)
+                }}>Add</Button>
+                </Card>)
+=======
                 <Col md="12"><Table>
 
                     <Row><Col md="1"></Col>{
@@ -455,6 +672,7 @@ function ApplicationForm(props) {
                     <Button className='btn-primary color-light' onClick={() => addRow(controlObj.SectionTitle)}>+</Button>
                     {controlObj.SectionTitle == "EmployementDetail" && <span id="experienceError"></span>}
                 </Col></>)
+>>>>>>> bd5c71abdc4b5cf444c98363b5c4ca6fb22e65ca
         }
         else {
             return returnControl(controlObj)
