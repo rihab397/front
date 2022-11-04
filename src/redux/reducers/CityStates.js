@@ -27,7 +27,7 @@ export function fetchcitystates(state = initialState, actions) {
         case types.FETCH_CITY_REQUEST: return {
             ...state,
         }
-        case types.FETCH_CITY_REQUEST: return {
+        case types.FETCH_CITY_SUCCESS: return {
             ...state,
             City: actions.payload
         }

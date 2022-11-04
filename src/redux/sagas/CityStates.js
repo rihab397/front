@@ -27,6 +27,19 @@ function* callapi(action) {
               
               }
         });
+        if(action.payload){
+            let result = yield axios.get(`https://www.universal-tutorial.com/api/cities/${action.payload}`, {
+                headers: {
+                    "Authorization": "Bearer "+data.auth_token,
+                    "Accept": "application/json",
+                    'Access-Control-Allow-Origin' : '*',
+                    'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+                }
+            });
+              
+            yield put({ type: type.FETCH_CITY_SUCCESS, payload:result.data.map((val,i)=>{return({id:i,["label"]:val.city_name,["value"]:val.city_name})}) })
+           
+        }else{
         let result = yield axios.get(" https://www.universal-tutorial.com/api/states/India", {
             headers: {
                 "Authorization": "Bearer "+data.auth_token,
@@ -37,6 +50,7 @@ function* callapi(action) {
         });
           
         yield put({ type: type.FETCH_STATES_SUCCESS, payload:result.data.map((val,i)=>{return({id:i,["label"]:val.state_name,["value"]:val.state_name})}) })
+        }
     }
     catch (er) {
         yield put({ type: type.FETCH_STATES_FAILURE, payload: er })
