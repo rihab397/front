@@ -31,7 +31,7 @@ function* callapi(action) {
             yield put({ type: type.CAREER_APPLICATION_SUBMIT_SUCCESS, payload:result})
     }
     catch (er) {
-        yield put({ type: type.FETCH_STATES_FAILURE, payload: er })
+        yield put({ type: type.CAREER_APPLICATION_SUBMIT_FAILURE, payload: er })
     }
 }
 

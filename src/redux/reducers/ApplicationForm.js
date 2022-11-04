@@ -1,7 +1,5 @@
-import * as types from "../Actions/ApplicationForm";
-// import * as types from "../Actions/CityStates";
 import { useDispatch } from "react-redux";
-
+import * as types from "../Actions/ApplicationForm"
 
 const initialState = {
     Data: [],
@@ -27,7 +25,7 @@ export function Carrer(state = initialState, actions) {
             ...state,
             msg: actions.payload
         }
-        case types.FETCH_INVESTORS_FAILURE: return {
+        case types.CAREER_APPLICATION_SUBMIT_FAILURE: return {
             ...state,
             error: actions.payload
         }
