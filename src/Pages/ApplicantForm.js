@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 import ReactTooltip from "react-tooltip";
 // v.SectionTitle == "PermanentDetails" &&<Clipboard size={5} color="balck"  onClick={(e) => copyContactDetails(e)} /> 
 import { Clipboard } from 'react-bootstrap-icons';
+import { Navigate, useNavigate } from 'react-router-dom';
 let QualificationRowformat =
     [
         { type: "text", md: 1, label: "Qualification", name: "qualification", validate: true, disable: false, set: false },
@@ -35,7 +36,7 @@ function ApplicationForm(props) {
     var [vendorform1, setVendorform1] = useState([
         //disable:false { set: true, type: "text", md: 3, label: "SAP ID", name: "SapId", function: "", sectionTilte: "General Information",  validate: true },
         { disable: false, set: true, type: "text", md: 3, label: "Company Name", name: "Company_Name", function: "", validate: true },
-        { disable: false, set: true, type: "multi2", md: 3, label: "Post Applied", name: "Post Applied", function: "", validate: true, options: [{ id: 0, label: "C.E.O", value: "C.E.O" }, { id: 1, label: "M.D", value: "M.D" }] },
+        { disable: false, set: true, type: "multi2", md: 3, label: "Post Applied", name: "Post_Applied", function: "", validate: true, options: [{ id: 0, label: "C.E.O", value: "C.E.O" }, { id: 1, label: "M.D", value: "M.D" }] },
         { disable: false, set: true, type: "text", md: 3, label: "First Name", name: "First_Name", function: "", validate: true },
         { disable: false, set: true, type: "text", md: 3, label: "Middle Name", name: "Middle_Name", function: "", validate: false },
         { disable: false, set: true, type: "text", md: 3, label: "Last Name", name: "Last_Name", function: "", validate: false },
@@ -62,13 +63,13 @@ function ApplicationForm(props) {
             { id: 5, label: "EWS", value: "EWS" }
             ]
         },
-        { disable: false, set: true, type: "text", SectionTitle: "ContactDetails", md: 3, label: "Correspondence Address", name: "Correspondence_Address", function: "", validate: true },
+        { disable: false, set: true, type: "text", SectionTitle: "ContactDetails", Parent: "ContactDetails", md: 3, label: "Correspondence Address", name: "Correspondence_Address", function: "", validate: true },
         { disable: false, set: true, type: "multi2", md: 3, label: "State", name: "State", function: "", Parent: "ContactDetails", validate: true, options: [{ id: 0, label: "New Delhi", value: "New Delhi" }] },
         { disable: false, set: true, type: "multi2", md: 3, label: "City", name: "City", function: "", Parent: "ContactDetails", validate: true, options: [{ id: 0, label: "New Delhi", value: "New Delhi" }] },
         { disable: false, set: true, type: "Number", md: 3, label: "Pin", name: "Pin", function: "", Parent: "ContactDetails", validate: true },
         { disable: false, set: true, type: "text", md: 3, label: "Mobile", name: "Mobile", function: "", Parent: "ContactDetails", validate: true },
         { disable: false, set: true, type: "text", md: 3, label: "Phone", name: "Phone", function: "", Parent: "ContactDetails", validate: true },
-        { disable: false, set: true, type: "text", SectionTitle: "PermanentDetails", md: 3, label: "Correspondence Address", name: "Correspondence_Address", function: "", validate: true },
+        { disable: false, set: true, type: "text", SectionTitle: "PermanentDetails", Parent: "PermanentDetails", md: 3, label: "Correspondence Address", name: "Correspondence_Address", function: "", validate: true },
         { disable: false, set: true, type: "multi2", md: 3, label: "State", name: "State", function: "", Parent: "PermanentDetails", validate: true, options: [{ id: 0, label: "New Delhi", value: "New Delhi" }] },
         { disable: false, set: true, type: "multi2", md: 3, label: "City", name: "City", function: "", Parent: "PermanentDetails", validate: true, options: [{ id: 0, label: "New Delhi", value: "New Delhi" }] },
         { disable: false, set: true, type: "Number", md: 3, label: "Pin", name: "Pin", function: "", Parent: "PermanentDetails", validate: true },
@@ -100,19 +101,27 @@ function ApplicationForm(props) {
         { disable: false, set: true, type: "file", md: 3, label: "Signature", name: "Signature", validate: true },
         { disable: false, set: true, type: "file", md: 3, label: "Resume", name: "Resume", validate: true },
     ])
-    let dispatch = useDispatch()
+
+   let dispatch = useDispatch()
     let ExpreinceRequired = 5;
     let [filtered, setFiltered] = useState({})
     let [tempString, setTempString] = useState()
     let [valid,setValid]=useState(false)
+    let navigate=useNavigate();
     useEffect(() => {
         dispatch({ type: types.FETCH_STATES_REQUEST })
     }, [])
     let CityStates = useSelector((state) => state.fetchcitystates)
-
+    
     function finalSubmit(){
-        dispatch({type:applicationActions.CAREER_APPLICATION_SUBMIT_SAGA_REQUEST,payload:filtered})
+        dispatch({type:applicationActions.CAREER_APPLICATION_SUBMIT_SAGA_REQUEST,payload:filtered});
+       
+          
+        // setInterval(() => {
+        
+        // },3000);
     }
+    
     let validate = () => {
         vendorform1.map((row, index) => {
             if (row.Parent && row.Parent !== "Guardian" && row.validate) {
@@ -179,6 +188,12 @@ let filterd= useSelector((state) => state.Carrer)
 useEffect(()=>{
     if(filterd && Object.keys(filterd.Data).length) setFiltered(filterd.Data)
 },[])
+useEffect(()=>{
+    if(filterd && filterd.id){   
+        navigate(`/Applicantpdf/${filterd.id}`);
+      }
+},[filterd])
+
 
     useEffect(() => {
         let states = CityStates.States;

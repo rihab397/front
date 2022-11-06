@@ -8,12 +8,10 @@ import { BrowserRouter } from "react-router-dom";
 function App() {
   return (
     <Provider store={store}>
-    <BrowserRouter>
-    <Routers />
-   
+      <BrowserRouter>
+        <Routers />
         <Sidenav />
-      
-    </BrowserRouter>
+      </BrowserRouter>
     </Provider>
   );
 }
