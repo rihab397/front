@@ -1,7 +1,7 @@
 import { all } from 'redux-saga/effects';
 import {myapi} from './investors'
 import {CityStates} from './CityStates'
-import {Carrer,ApplicantDataGet} from "./ApplicationForm"
+import {Carrer,ApplicantDataGet,FetchAllApplicantData} from "./ApplicationForm"
 
 
 
@@ -10,6 +10,7 @@ export default function* rootSaga() {
        myapi(),
        CityStates(),
        Carrer(),
-       ApplicantDataGet()
+       ApplicantDataGet(),
+       FetchAllApplicantData()
     ])
 }

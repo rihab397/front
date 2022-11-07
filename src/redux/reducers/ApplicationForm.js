@@ -6,7 +6,8 @@ const initialState = {
     error: '',
     msg: '',
     id:"",
-    webData:[]
+    webData:[],
+    allApplicants:[]
 }
 
 
@@ -33,6 +34,10 @@ export function Carrer(state = initialState, actions) {
         case types.CAREER_APPLICATION_GET_DATA_SUCCESS: return {
             ...state,
             webData:actions.payload.data,
+        }
+        case types.CAREER_FETCH_ALL_APPLICATION_DATA_SUCCESS: return {
+            ...state,
+            allApplicants:actions.payload.data,
         }
         default: return {
             ...state,

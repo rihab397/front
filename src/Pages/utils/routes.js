@@ -2,6 +2,7 @@ import { Route,Routes, } from "react-router-dom";
 import DynamicTable from "../DynamicTable";
 import ApplicationForm from "../ApplicantForm";
 import Applicantpdf from "../Applicantpdf"
+import ApplicationsReview from "../ApplicationsReview";
 function Expenses() {
     return (
       <main style={{ padding: "1rem 0" }}>
@@ -24,5 +25,6 @@ export function Routers(params) {
         <Route path="/DynamicTable" className="nav_link" element={<DynamicTable />} />
         <Route path="/ApplicationForm" className="nav_link" element={<ApplicationForm />} />
         <Route path="/Applicantpdf/:id" className="nav_link" element={<Applicantpdf />} />
+        <Route path="/ApplicationsReview" className="nav_link" element={<ApplicationsReview />} />
     </Routes>)
 }

@@ -9,28 +9,28 @@ import { toast } from 'react-toastify';
 import ReactTooltip from "react-tooltip";
 // v.SectionTitle == "PermanentDetails" &&<Clipboard size={5} color="balck"  onClick={(e) => copyContactDetails(e)} /> 
 import { Clipboard } from 'react-bootstrap-icons';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { json, Navigate, useNavigate } from 'react-router-dom';
 let QualificationRowformat =
     [
-        { type: "text", md: 1, label: "Qualification", name: "qualification", validate: true, disable: false, set: false },
-        { type: "text", md: 2, label: "Collage/School Name", name: "Collage_School_Name", validate: true, disable: false, set: true },
-        { type: "text", md: 2, label: "Qualification Name", name: "Qualification_Name", validate: true, disable: false, set: true },
-        { type: "text", md: 2, label: "Univerersity Or Board", name: "UniverersityOrBoard", validate: true, disable: false, set: true },
-        { type: "datetime-local", md: 2, label: "Passing Year", name: "Passing Year", validate: true, disable: false, set: true },
-        { type: "Number", md: 1, label: "Percantage", name: "Percantage", validate: true, disable: false, set: true },
-        { type: "text", md: 1, label: "Division", name: "Division", validate: true, disable: false, set: true },
-        { type: "multi2", md: 1, label: "Program", name: "Program", validate: true, disable: false, set: true, options: [{ id: 1, label: "Regular", value: "Regular" }, { id: 1, label: "Part Time", value: "Part Time" }, { id: 1, label: "Full Time", value: "Full Time" }, { id: 1, label: "Correspondence", value: "Correspondence" },] },
+        { type: "text", md: 1, label: "Qualification", name: "qualification", validate: true, disable: false, set: false,validate:false },
+        { type: "text", md: 2, label: "Collage/School Name", name: "Collage_School_Name", validate: true, disable: false, set: true,validate:true },
+        { type: "text", md: 2, label: "Qualification Name", name: "Qualification_Name", validate: true, disable: false, set: true,validate:true },
+        { type: "text", md: 2, label: "Univerersity Or Board", name: "UniverersityOrBoard", validate: true, disable: false, set: true,validate:true },
+        { type: "datetime-local", md: 2, label: "Passing Year", name: "Passing Year", validate: true, disable: false, set: true,validate:true },
+        { type: "Number", md: 1, label: "Percantage", name: "Percantage", validate: true, disable: false, set: true,validate:true },
+        { type: "text", md: 1, label: "Division", name: "Division", validate: true, disable: false, set: true,validate:true },
+        { type: "multi2", md: 1, label: "Program", name: "Program", validate: true, disable: false, set: true,validate:true, options: [{ id: 1, label: "Regular", value: "Regular" }, { id: 1, label: "Part Time", value: "Part Time" }, { id: 1, label: "Full Time", value: "Full Time" }, { id: 1, label: "Correspondence", value: "Correspondence" },] },
     ]
 let EmployementRowFormat = [
-    { type: "text", md: 2, label: "Organisation Name", name: "OrganisationName", validate: true, disable: false, set: true },
-    { type: "text", md: 1, label: "Organisation Address", name: "OrganisationAddress", validate: true, disable: false, set: true },
-    { type: "text", md: 1, label: "Employer Type", name: "EmployerType", validate: true, disable: false, set: true },
-    { type: "text", md: 1, label: "Post Held", name: "PostHeld", validate: true, disable: false, set: true },
-    { type: "text", md: 1, label: "Department", name: "Department", validate: true, disable: false, set: true },
-    { type: "datetime-local", md: 1, label: "Start From", name: "From", validate: true, disable: false, set: true },
-    { type: "datetime-local", md: 1, label: "To", name: "To", validate: true, disable: false, set: true },
-    { disable: true, type: "text", md: 1, label: "Experince Year", name: "ExperinceYear", validate: true, disable: false, set: true },
-    { type: "text", md: 2, label: "Responsiblilites", name: "Responsiblilites", validate: true, disable: false, set: true },
+    { type: "text", md: 2, label: "Organisation Name", name: "OrganisationName", validate: true, disable: false, set: true,validate:false },
+    { type: "text", md: 1, label: "Organisation Address", name: "OrganisationAddress", validate: true, disable: false, set: true,validate:true },
+    { type: "text", md: 1, label: "Employer Type", name: "EmployerType", validate: true, disable: false, set: true,validate:true },
+    { type: "text", md: 1, label: "Post Held", name: "PostHeld", validate: true, disable: false, set: true,validate:true },
+    { type: "text", md: 1, label: "Department", name: "Department", validate: true, disable: false, set: true,validate:true },
+    { type: "datetime-local", md: 1, label: "Start From", name: "From", validate: true, disable: false, set: true,validate:true },
+    { type: "datetime-local", md: 1, label: "To", name: "To", validate: true, disable: false, set: true,validate:true },
+    { disable: true, type: "text", md: 1, label: "Experince Year", name: "ExperinceYear", validate: true, disable: false, set: true,validate:true },
+    { type: "text", md: 2, label: "Responsiblilites", name: "Responsiblilites", validate: true, disable: false, set: true,validate:true },
 ];
 function ApplicationForm(props) {
     var [vendorform1, setVendorform1] = useState([
@@ -67,28 +67,28 @@ function ApplicationForm(props) {
         { disable: false, set: true, type: "multi2", md: 3, label: "State", name: "State", function: "", Parent: "ContactDetails", validate: true, options: [{ id: 0, label: "New Delhi", value: "New Delhi" }] },
         { disable: false, set: true, type: "multi2", md: 3, label: "City", name: "City", function: "", Parent: "ContactDetails", validate: true, options: [{ id: 0, label: "New Delhi", value: "New Delhi" }] },
         { disable: false, set: true, type: "Number", md: 3, label: "Pin", name: "Pin", function: "", Parent: "ContactDetails", validate: true },
-        { disable: false, set: true, type: "text", md: 3, label: "Mobile", name: "Mobile", function: "", Parent: "ContactDetails", validate: true },
+        { disable: false, set: true, type: "text", md: 3, label: "Mobile", name: "ContactMobile", function: "", Parent: "ContactDetails", validate: true },
         { disable: false, set: true, type: "text", md: 3, label: "Phone", name: "Phone", function: "", Parent: "ContactDetails", validate: true },
         { disable: false, set: true, type: "text", SectionTitle: "PermanentDetails", Parent: "PermanentDetails", md: 3, label: "Correspondence Address", name: "Correspondence_Address", function: "", validate: true },
         { disable: false, set: true, type: "multi2", md: 3, label: "State", name: "State", function: "", Parent: "PermanentDetails", validate: true, options: [{ id: 0, label: "New Delhi", value: "New Delhi" }] },
         { disable: false, set: true, type: "multi2", md: 3, label: "City", name: "City", function: "", Parent: "PermanentDetails", validate: true, options: [{ id: 0, label: "New Delhi", value: "New Delhi" }] },
         { disable: false, set: true, type: "Number", md: 3, label: "Pin", name: "Pin", function: "", Parent: "PermanentDetails", validate: true },
-        { disable: false, set: true, type: "text", md: 3, label: "Mobile", name: "Mobile", function: "", Parent: "PermanentDetails", validate: true },
-        { disable: false, set: true, type: "text", md: 3, label: "Phone", name: "Phone", function: "", Parent: "PermanentDetails", validate: true },
+        { disable: false, set: true, type: "text", md: 3, label: "Mobile", name: "PemanentMobile", function: "", Parent: "PermanentDetails", validate: true },
+        { disable: false, set: true, type: "text", md: 3, label: "Phone", name: "PermanentPhone", function: "", Parent: "PermanentDetails", validate: true },
         {
-            disable: false, set: true, type: "text", SectionTitle: "Qualification", md: 12, label: "Qualification", name: "Qualification", function: "", validate: true, fields: [], intaialCount: 4, rowFormat: [
-                { id: 0, Name: "Matric", rowData: QualificationRowformat },
-                { id: 1, Name: "PostMatric", rowData: QualificationRowformat },
-                { id: 2, Name: "Graduation", rowData: QualificationRowformat },
-                { id: 3, Name: "PostGraduation", rowData: QualificationRowformat }
+            disable: false, set: true, type: "text", SectionTitle: "Qualification", md: 12, label: "Qualification", name: "Qualification", function: "", validate: false, fields: [], intaialCount: 4, rowFormat: [
+                { id: 0, Name: "Matric", rowData:JSON.parse(JSON.stringify( QualificationRowformat)) },
+                { id: 1, Name: "PostMatric", rowData: JSON.parse(JSON.stringify( QualificationRowformat)) },
+                { id: 2, Name: "Graduation", rowData: JSON.parse(JSON.stringify( QualificationRowformat)) },
+                { id: 3, Name: "PostGraduation", rowData: JSON.parse(JSON.stringify( QualificationRowformat)) }
             ]
         },
         {
-            disable: false, set: true, type: "text", SectionTitle: "EmployementDetail", md: 12, label: "Qualification", name: "Qualification", function: "", validate: true, fields: [], intaialCount: 4, rowFormat: [
-                { id: 0, Name: "Ex1", rowData: EmployementRowFormat },
-                { id: 1, Name: "Ex2", rowData: EmployementRowFormat },
-                { id: 2, Name: "Ex3", rowData: EmployementRowFormat },
-                { id: 3, Name: "Ex4", rowData: EmployementRowFormat }
+            disable: false, set: true, type: "text", SectionTitle: "EmployementDetail", md: 12, label: "Qualification", name: "Qualification", function: "", validate: false, fields: [], intaialCount: 4, rowFormat: [
+                { id: 0, Name: "Ex1", rowData: JSON.parse(JSON.stringify( EmployementRowFormat))},
+                { id: 1, Name: "Ex2", rowData: JSON.parse(JSON.stringify( EmployementRowFormat)) },
+                { id: 2, Name: "Ex3", rowData: JSON.parse(JSON.stringify( EmployementRowFormat)) },
+                { id: 3, Name: "Ex4", rowData: JSON.parse(JSON.stringify( EmployementRowFormat)) }
             ]
         },
         { disable: false, set: true, type: "multi2", md: 3, SectionTitle: "Other Details", label: "Are you currently under service agreement/bond with your existing employer? ", name: "UnderServiceBond", validate: true, options: [{ id: 1, label: "true", value: true }, { id: 1, label: "false", value: false }] },
@@ -106,7 +106,8 @@ function ApplicationForm(props) {
     let ExpreinceRequired = 5;
     let [filtered, setFiltered] = useState({})
     let [tempString, setTempString] = useState()
-    let [valid,setValid]=useState(false)
+    let [valid,setValid]=useState(false);
+    let [enableSubmit,setEnableSubmit]=useState(true);
     let navigate=useNavigate();
     useEffect(() => {
         dispatch({ type: types.FETCH_STATES_REQUEST })
@@ -124,44 +125,59 @@ function ApplicationForm(props) {
     
     let validate = () => {
         vendorform1.map((row, index) => {
-            if (row.Parent && row.Parent !== "Guardian" && row.validate) {
-                if (filtered && filtered[row.Parent] && filtered[row.Parent][row.name]) {
-                    vendorform1[index]["error"] = false
-                }
-                else {
-                    setValid(false)
-                    vendorform1[index]["error"] = `Please fill the ${row.label} `
-                    setVendorform1([...vendorform1])
-                    toast(`Please fill ${row.label}`)
-                    return(0);
-                }
-            }
-            if (!row.rowFormat && row.validate) {
+            if (!row.rowFormat && row.validate && !row.Parent) {
                 if (!filtered[row.name]) {
                     setValid(false)
                     vendorform1[index]["error"] = `Please fill the ${row.label} `
                     setVendorform1([...vendorform1])
                     toast(`Please fill ${row.label}`)
-                    return(0);
+
                 }
                 else {
                     vendorform1[index]["error"] = false
+                    setValid(true)
                 }
             }
+
+            if (row.Parent && row.Parent !== "Guardian" && row.validate) {
+                if (filtered && filtered[row.Parent] && filtered[row.Parent][row.name]) {
+                    vendorform1[index]["error"] = false
+                    setValid(true)
+                }
+                else if(filtered && filtered[row.Parent] && !filtered[row.Parent][row.name]){
+                    setValid(false)
+                    vendorform1[index]["error"] = `Please fill the ${row.label} `
+                    setVendorform1([...vendorform1])
+                    toast(`Please fill ${row.label}`)
+
+                }
+                else {
+                    setValid(false)
+                    vendorform1[index]["error"] = `Please fill the ${row.label} `
+                    setVendorform1([...vendorform1])
+                    toast(`Please fill ${row.label}`)
+
+                }
+               
+            }
+
+            
             if (row.rowFormat && row.validate) {
                 row.rowFormat.forEach((val, indx) => {
+
                     val.rowData.forEach((row2, i) => {
-                        if (filtered[row.name] && filtered[row.name].some(v => v.Name == val.Name) && filtered[row.name].some(obj => obj[row2.name]) ) { //if name present and key value presen 
+                        if (filtered[row.name] && filtered[row.name].some(v => v.Name == val.Name) &&  filtered[row.name][filtered[row.name].findIndex(v => v.Name == val.Name)][row2.name] ) { //if name present and key value presen 
                             vendorform1[index].rowFormat[indx]["rowData"][i]["error"] = false
+                            setValid(true)
                         }
-                    //   else  if (filtered[row.name] && filtered[row.name].some(v => v.Name == val.Name) && !filtered[row.name].some(obj => obj[row2.name]) ) { //if name is present in obj and key's value  is notpresent 
-                    //         vendorform1[index].rowFormat[indx]["rowData"][i]["error"] = `Please fill the ${row2.label} `
-                    //     }
-                        else {
-                            setValid(false)
-                            if(indx==0  && (val.Name=="Ex1" || val.Name=="Matric")){
+                        if (filtered[row.name] && filtered[row.name].some(v => v.Name == val.Name) && row2.validate && !filtered[row.name][filtered[row.name].findIndex(v => v.Name == val.Name)][row2.name] ) { //if name present and key value presen 
+                            setValid(false)      
                             vendorform1[index].rowFormat[indx]["rowData"][i]["error"] = `Please fill the ${row2.label} `
-                            return(0);
+                        }
+                        else if( !filtered[row.name]){
+                            if(val.Name=="Ex1" || val.Name=="Matric"){
+                                setValid(false)
+                                 vendorform1[index].rowFormat[indx]["rowData"][i]["error"] = `Please fill the ${row2.label} `
                             }
                         }
                     })
@@ -175,10 +191,15 @@ function ApplicationForm(props) {
                 document.getElementById("experienceError").innerHTML = `Expreince Should have atleast ${ExpreinceRequired} `
                 setValid(false)
             }
-            return(0);
+            else{
+                setValid(true)
+            }
+
         }
       
-console.log("this is last")
+if(valid){
+    setEnableSubmit(false)
+}
     }
 useEffect(()=>{
     dispatch({type:applicationActions.CAREER_APPLICATION_SUBMIT_DATA,payload:filtered})
@@ -247,7 +268,7 @@ useEffect(()=>{
             else {
                 let newd = update(filtered2, {
                     [v.Parent]: {
-                        $set: { [e.target.name]: { $set: e.target.value } }
+                        $set: { [e.target.name]: e.target.value }
                     }
                 })
                 setFiltered(newd)
@@ -314,7 +335,14 @@ useEffect(()=>{
     function copyContactDetails(e) {
         e.preventDefault()
         if (filtered["ContactDetails"]) {
+            let filtered2=_.cloneDeep(filtered["ContactDetails"])
+            let copyAbleValue=[["Phone","PermanentPhone"],["ContactMobile","PemanentMobile"]]
             filtered["PermanentDetails"] = filtered["ContactDetails"];
+            copyAbleValue.map(([key,value])=>{
+                if(Object.keys(filtered2).some(val=>val==key)){
+                    filtered["PermanentDetails"][value]= filtered["ContactDetails"][key]  
+                }
+            })     
             setFiltered({ ...filtered })
             vendorform1.map(v => {
                 if (v.Parent == "PermanentDetails") {
@@ -385,8 +413,14 @@ useEffect(()=>{
                     <Col>  <select type={"select"}
                         name={v.name}
                         className="form-control"
-                        onChange={(e) => { setValues(v, e) }}
+                        onChange={(e) => {
+                            
+                            if (SectionTitle && (i || i == 0)) { setRowValues(e, i, SectionTitle, Name) }
+                            else { setValues(v, e) }
+                        
+                        }}
                     >
+                         <option style={{display:"none"}}></option>
                         {v.options.map((val) => (
                             <option>{val.label}</option>
                         ))
@@ -493,7 +527,7 @@ useEffect(()=>{
                 }
             </Row></form><br />
         <Button className='btn btn-primary ml-5 position-absolute' onClick={() => validate()}>validate</Button>
-        <Button className='btn btn-primary ml-5 position-absolute'  onClick={() =>finalSubmit()}>Submit</Button>
+        <Button className='btn btn-primary ml-5 position-absolute' disabled={enableSubmit}  onClick={() =>finalSubmit()}>Submit</Button>
     </>)
 }
 export default ApplicationForm;

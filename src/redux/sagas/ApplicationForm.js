@@ -37,11 +37,17 @@ function* callapi2(action) {
         let data={}
         data.auth_token=""
           let fd=new FormData();
-     let  id=action.payload
+          if(action.payload){
+           let  id=action.payload
      
             let result = yield axios.post(`http://localhost:4000/Career/ApplicationGet`,{id:id});
               
             yield put({ type: type.CAREER_APPLICATION_GET_DATA_SUCCESS, payload:result.data})
+          }
+          else{
+            let result = yield axios.get(`http://localhost:4000/Career/fetchAllApplicant`);
+            yield put({ type: type.CAREER_FETCH_ALL_APPLICATION_DATA_SUCCESS, payload:result.data})
+          }
     }
     catch (er) {
         yield put({ type: type.CAREER_APPLICATION_SUBMIT_FAILURE, payload: er })
@@ -57,4 +63,8 @@ export function* Carrer() {
 
 export function* ApplicantDataGet() {
     yield takeEvery(type.CAREER_APPLICATION_GET_DATA, callapi2)
+}
+
+export function* FetchAllApplicantData() {
+    yield takeEvery(type.CAREER_FETCH_ALL_APPLICATION_DATA_REQUEST, callapi2)
 }
