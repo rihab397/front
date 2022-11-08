@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
-import { Row, Col, Table, Input, Button } from 'reactstrap'
+import { Row, Col, Table, Input, Button ,} from 'reactstrap'
 import update from "immutability-helper";
 import _ from "lodash";
 import * as types from "../redux/Actions/CityStates"
 import { useDispatch, useSelector } from 'react-redux';
 import * as applicationActions from "../redux/Actions/ApplicationForm"
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 import ReactTooltip from "react-tooltip";
 // v.SectionTitle == "PermanentDetails" &&<Clipboard size={5} color="balck"  onClick={(e) => copyContactDetails(e)} /> 
 import { Clipboard } from 'react-bootstrap-icons';
@@ -130,7 +130,7 @@ function ApplicationForm(props) {
                     setValid(false)
                     vendorform1[index]["error"] = `Please fill the ${row.label} `
                     setVendorform1([...vendorform1])
-                    toast(`Please fill ${row.label}`)
+                    // toast(`Please fill ${row.label}`)
 
                 }
                 else {
@@ -148,14 +148,14 @@ function ApplicationForm(props) {
                     setValid(false)
                     vendorform1[index]["error"] = `Please fill the ${row.label} `
                     setVendorform1([...vendorform1])
-                    toast(`Please fill ${row.label}`)
+                    // toast(`Please fill ${row.label}`)
 
                 }
                 else {
                     setValid(false)
                     vendorform1[index]["error"] = `Please fill the ${row.label} `
                     setVendorform1([...vendorform1])
-                    toast(`Please fill ${row.label}`)
+                    // toast(`Please fill ${row.label}`)
 
                 }
                
@@ -359,9 +359,10 @@ useEffect(()=>{
                     Copy from ContactDetails
                 </ReactTooltip>
                 {
-                    v.SectionTitle && <Col md={12}><h2 className='bg-primary color-light'>{v.SectionTitle}{
+                    v.SectionTitle && <Col md={12}><br/><h2 className='bg-primary color-light'>{v.SectionTitle}{
 
-                        v.SectionTitle == "PermanentDetails" && <span data-tip data-for="registerTip"  style={{ marginLeft: "10px", marginTop: "7px" }}><Clipboard size={20} color="white" onClick={(e) => copyContactDetails(e)} /> </span>
+                        v.SectionTitle == "PermanentDetails" && <span data-tip data-for="registerTip"  style={{ marginLeft: "10px", marginTop: "7px" }}>
+                            <Clipboard size={20} color="white" onClick={(e) => copyContactDetails(e)} /> </span>
                     }</h2></Col>
                 }
                 {v.set && <Col md={v.md}>   {!SectionTitle && (!i || i == 0) && <Col><label for={v.label}>{v.label}</label></Col>}
@@ -371,6 +372,7 @@ useEffect(()=>{
                             placeholder={v.label}
                             required={v.validate}
                             className="form-control"
+                            width={{position:"relative",width:"100%"}}
                             value={
                                 filtered && Object.keys(filtered).length ?
                                     SectionTitle && filtered[SectionTitle] && filtered[SectionTitle].some(val => val.Name == Name) ?
@@ -391,10 +393,11 @@ useEffect(()=>{
         if (v.type == ("file")) {
             return (<>
                 {
-                    v.SectionTitle && <Col md={12}><h2 className='bg-primary color-light'>{v.SectionTitle}</h2></Col>
+                    v.SectionTitle && <Col md={12}><br/><h2 className='bg-primary color-light'>{v.SectionTitle}</h2></Col>
                 }
                 <Col md={v.md}>{!SectionTitle && (!i || i == 0) && <Col><label for={v.label}>{v.label}</label></Col>}
                     <Col><input type={v.type}
+                         
                         name={v.name}
                         placeholder={v.label}
                         required={v.validate}
@@ -407,7 +410,7 @@ useEffect(()=>{
         if (v.type == ("multi2")) {
             return (<>
                 {
-                    v.SectionTitle && <Col md={12}><h2 className='bg-primary color-light'>{v.SectionTitle}</h2></Col>
+                    v.SectionTitle && <Col md={12}><br /><h2 className='bg-primary color-light'>{v.SectionTitle}</h2></Col>
                 }
                 <Col md={v.md}>  {!SectionTitle && (!i || i == 0) && <Col><label for={v.label}>{v.label}</label></Col>}
                     <Col>  <select type={"select"}
@@ -433,7 +436,7 @@ useEffect(()=>{
         if (v.type == ("datetime-local")) {
             return (<>
                 {
-                    v.SectionTitle && <Col md={12}><h2 className='bg-primary color-light'>{v.SectionTitle}</h2></Col>
+                    v.SectionTitle && <Col md={12}><br /><h2 className='bg-primary color-light'>{v.SectionTitle}</h2></Col>
                 }
                 <Col md={v.md}> {!SectionTitle && (!i || i == 0) && <Col><label for={v.label}>{v.label}</label></Col>}
                     <Col> <input type={v.type}

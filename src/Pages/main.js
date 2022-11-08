@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector, connect } from "react-redux"
 import * as types from "../redux/Actions/investors"
 import {toastr} from 'react-redux-toastr'
-import {toast} from 'react-toastify'
+// import {toast} from 'react-toastify'
 import { useNavigate } from "react-router-dom"
 
 const mapStateToProps = (state, ownProps) => {
@@ -33,9 +33,10 @@ function Main(props) {
             {JSON.stringify(investors)}
             <p>hello</p>
             <button 
-            onClick={()=>{toast("lkshlk");
+            onClick={()=>{
+                // toast("lkshlk");
             console.log("sfsdf")
-            toastr.success("Success","data get successful")
+            // toastr.success("Success","data get successful")
               }}> sss</button>
         </>
     )
