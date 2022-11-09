@@ -146,11 +146,7 @@ export default function DynamicTable(props) {
                 }</tr>
                 }
             </Table>
-            <Modal isOpen={modalFlag} >
-                {
-
-                }
-            </Modal>
+          
         </>
     )
 
