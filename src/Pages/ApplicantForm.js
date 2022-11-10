@@ -186,7 +186,8 @@ function ApplicationForm(props) {
             }
         })
         if (filtered["EmployementDetail"] && filtered["EmployementDetail"] && filtered["EmployementDetail"].some(v => Object.keys(v).some(val => val == "ExperinceYear"))) {
-            let exp = filtered["EmployementDetail"].filter(v => v["ExperinceYear"]).map(v => v["ExperinceYear"][0]).reduce((a, b) => parseInt(a) + parseInt(b));
+            // let exp = filtered["EmployementDetail"].filter(v => v["ExperinceYear"]).map(v => v["ExperinceYear"][0]).reduce((a, b) => parseInt(a) + parseInt(b));
+            let exp =  filtered["EmployementDetail"].filter(v => v["ExperinceYear"]).map(v => v["ExperinceYear"].split(" ")[0].replace("Y",""))
             if (exp < ExpreinceRequired) {
                 document.getElementById("experienceError").innerHTML = `Expreince Should have atleast ${ExpreinceRequired} `
                 setValid(false)
@@ -359,7 +360,7 @@ useEffect(()=>{
                     Copy from ContactDetails
                 </ReactTooltip>
                 {
-                    v.SectionTitle && <Col md={12}><br/><h2 className='bg-primary color-light'>{v.SectionTitle}{
+                    v.SectionTitle && <Col md={12}><br/><h2 className='bg-primary text-light'>{v.SectionTitle}{
 
                         v.SectionTitle == "PermanentDetails" && <span data-tip data-for="registerTip"  style={{ marginLeft: "10px", marginTop: "7px" }}>
                             <Clipboard size={20} color="white" onClick={(e) => copyContactDetails(e)} /> </span>
@@ -393,7 +394,7 @@ useEffect(()=>{
         if (v.type == ("file")) {
             return (<>
                 {
-                    v.SectionTitle && <Col md={12}><br/><h2 className='bg-primary color-light'>{v.SectionTitle}</h2></Col>
+                    v.SectionTitle && <Col md={12}><br/><h2 className='bg-primary text-light'>{v.SectionTitle}</h2></Col>
                 }
                 <Col md={v.md}>{!SectionTitle && (!i || i == 0) && <Col><label for={v.label}>{v.label}</label></Col>}
                     <Col><input type={v.type}
@@ -410,7 +411,7 @@ useEffect(()=>{
         if (v.type == ("multi2")) {
             return (<>
                 {
-                    v.SectionTitle && <Col md={12}><br /><h2 className='bg-primary color-light'>{v.SectionTitle}</h2></Col>
+                    v.SectionTitle && <Col md={12}><br /><h2 className='bg-primary text-light'>{v.SectionTitle}</h2></Col>
                 }
                 <Col md={v.md}>  {!SectionTitle && (!i || i == 0) && <Col><label for={v.label}>{v.label}</label></Col>}
                     <Col>  <select type={"select"}
@@ -436,7 +437,7 @@ useEffect(()=>{
         if (v.type == ("datetime-local")) {
             return (<>
                 {
-                    v.SectionTitle && <Col md={12}><br /><h2 className='bg-primary color-light'>{v.SectionTitle}</h2></Col>
+                    v.SectionTitle && <Col md={12}><br /><h2 className='bg-primary text-light'>{v.SectionTitle}</h2></Col>
                 }
                 <Col md={v.md}> {!SectionTitle && (!i || i == 0) && <Col><label for={v.label}>{v.label}</label></Col>}
                     <Col> <input type={v.type}
@@ -474,11 +475,11 @@ useEffect(()=>{
                             })} />}</Col>
                         {
                             Data.rowData.map(val => (
-                                <Col>
+                                <>
                                     {
                                         returnControl(val, rowIndex, SectionTitle, Data.Name)
                                     }
-                                </Col>
+                                </>
                             ))
                         }</Row>)
                 })
@@ -501,7 +502,7 @@ useEffect(()=>{
         if (controlObj.SectionTitle == "Qualification" || controlObj.SectionTitle == "EmployementDetail") {
             return (<>
                 {
-                    controlObj.SectionTitle && <Col md="12"><h2 className='bg-primary color-light'>{controlObj.SectionTitle}</h2></Col>
+                    controlObj.SectionTitle && <Col md="12"><br/><h2 className='bg-primary text-light'>{controlObj.SectionTitle}</h2></Col>
                 }
                 <Col md="12"><Table>
                     <Row><Col md="1"></Col>{
@@ -529,8 +530,8 @@ useEffect(()=>{
                     vendorform1 && vendorform1.length && vendorform1.map(controlObj => (returnControls(controlObj)))
                 }
             </Row></form><br />
-        <Button className='btn btn-primary ml-5 position-absolute' onClick={() => validate()}>validate</Button>
-        <Button className='btn btn-primary ml-5 position-absolute' disabled={enableSubmit}  onClick={() =>finalSubmit()}>Submit</Button>
+        <Button className='btn btn-primary ml-5' onClick={() => validate()}>validate</Button>
+        <Button className='btn btn-primary ml-5 ' disabled={enableSubmit}  onClick={() =>finalSubmit()}>Submit</Button>
     </>)
 }
 export default ApplicationForm;

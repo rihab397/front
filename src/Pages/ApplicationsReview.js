@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import * as _ from "lodash"
 import update from 'immutability-helper';
 import { Table, Button, Row, Col, Card, Modal, ModalHeader, ModalBody, ModalFooter, CardHeader, InputGroup } from "reactstrap"
@@ -142,7 +142,7 @@ async function ApplicantpdfComponent(applicantData, flag) {
             fd.set("userProfilePdf", blob)
             fd.set("id", String(appData["_id"]));
             let result = await axios.post(`http://localhost:4000/Career/SaveUserProfilePdf`, fd);
-
+            window.open(window.source)
           }
           else {
             pdf.save("firstpdf.pdf");
@@ -160,7 +160,8 @@ async function ApplicantpdfComponent(applicantData, flag) {
 
   create(flag)
   if (window.source) {
-    return window.source
+    // return window.source
+    // window.open(window.source)
   }
 }
 
@@ -172,6 +173,10 @@ function ApplicationsReview(props) {
   let [modalView, setmodalView] = useState(false)
   let filterd = useSelector((state) => state.Carrer)
   let [flag, setflag] = useState()
+  let [pageNationCount, setPagenationCount] = useState(2);
+  let [pageNationArray, setpageNationArray] = useState([])
+  let [pageIndex, setPageIndex] = useState(0);
+
 
 
   useEffect(() => {
@@ -188,7 +193,7 @@ function ApplicationsReview(props) {
           await ApplicantpdfComponent(filterd.webData, flag).then(val => {
             if (val) {
               setsouce(val)
-              window.open(val)
+              // window.open(val)
               setmodalView(true);
             }
           })
@@ -197,13 +202,62 @@ function ApplicationsReview(props) {
       }
       if (flag == 2) { ApplicantpdfComponent(filterd.webData, flag) }
 
+
     }
   }, [filterd])
+  let [selectedRow, setSelectedRow] = useState([])
+  function pageNation(filterd){
+    if (filterd && filterd.allApplicants && filterd.allApplicants.length) {
+      let data = filterd.allApplicants
+      let arr = [];
+      for (let i = 0; i < data.length; i += pageNationCount) {
+        if (data.length - i >= pageNationCount) {
+          arr.push(data.slice(i, i + pageNationCount))
+        }
+        else {
+          arr.push(data.slice(i, data.length))
+          break;
+        }
+      }
+      
+      setpageNationArray(arr)
+      setSelectedRow(arr[pageIndex])
+      setPageIndex(0)
+
+    }
+  }
+  useEffect(() => {
+    pageNation( filterd)
+  }, [filterd,pageNationCount])
+
+  function searchFilter(e) {    //throtal function
+    let timer;
+    return function filter2(e) {
+      if (timer) timer = 0
+      else timer = setInterval(() => {
+        if (e.target.value) {
+          let temp = _.cloneDeep(pageNationArray[pageIndex]).filter(v => {
+            let expr = new RegExp(e.target.value, "i")
+            if (expr.test(v.Company_Name) || expr.test(v.First_Name) || expr.test(v.Post_Applied) || expr.test(v.Category) || expr.test(v._id)) {
+              return v
+            }
+          })
+          setSelectedRow(temp)
+        }
+        else {
+          setSelectedRow(_.cloneDeep(pageNationArray)[0])
+        }
+      }, 1000);
+    }
+  }
+
+  
 
 
   let applicantData = filterd.webData;
   let apiData = filterd.allApplicants;
   let [FromEndDate, setFromEndDate] = useState({});
+
 
   function getSingleApplicant(id) {
     dispatch({ type: applicationActions.CAREER_APPLICATION_GET_DATA, payload: id })
@@ -212,30 +266,30 @@ function ApplicationsReview(props) {
   function setDates(e) {
     setFromEndDate({ ...FromEndDate, [e.target.name]: e.target.value })
   }
-function downloadFile(fileName){
-  axios.get("http://localhost:4000/Career/downloadFile",
+  function downloadFile(fileName) {
+    axios.get("http://localhost:4000/Career/downloadFile",
       {
-          params: {
-              fileName: fileName
-          },
-          responseType: 'arraybuffer'
+        params: {
+          fileName: fileName
+        },
+        responseType: 'arraybuffer'
       }).then(res => { // then print response status
-          var blob = new Blob([res.data]);
-          var url = URL.createObjectURL(blob);
-          var a = document.createElement("a");
-          document.body.appendChild(a);
-          a.href = url;
-          a.download = fileName;
-          a.click();
-          window.URL.revokeObjectURL(url);
+        var blob = new Blob([res.data]);
+        var url = URL.createObjectURL(blob);
+        var a = document.createElement("a");
+        document.body.appendChild(a);
+        a.href = url;
+        a.download = fileName;
+        a.click();
+        window.URL.revokeObjectURL(url);
       });
-}
+  }
 
   async function fetchAndSaveExcelDataOfApplicants() {
     if (Object.keys(FromEndDate).length > 0) {
-      let {data} =await axios.post("http://localhost:4000/Career/ApplicationCount", FromEndDate)
-      if(data && data.fileName){
-        downloadFile(data.fileName)        
+      let { data } = await axios.post("http://localhost:4000/Career/ApplicationCount", FromEndDate)
+      if (data && data.fileName) {
+        downloadFile(data.fileName)
       }
       console.log(data);
     }
@@ -266,11 +320,11 @@ function downloadFile(fileName){
             <Col>
               <label for="setDates">Find Applicants of a particular Date</label>
               <Row>
-                 <Col><Row><InputGroup className="formControl">
+                <Col><Row><InputGroup className="formControl">
                   {returnControl("datetime-local", "fromDate", "fromDate", 3, setDates)}
                   <Col>&nbsp;</Col>
-                <Col><p>To</p></Col>
-                {returnControl("datetime-local", "EndDate", "EndDate", 3, setDates)}
+                  <Col><p>To</p></Col>
+                  {returnControl("datetime-local", "EndDate", "EndDate", 3, setDates)}
                 </InputGroup></Row></Col>
                 <Col><Button color="danger" onClick={() => fetchAndSaveExcelDataOfApplicants()}>Save</Button></Col>
               </Row>
@@ -280,7 +334,7 @@ function downloadFile(fileName){
             <label for="setDates">Find Applicants between a Date Range</label>
             <Row> <Col>{returnControl("datetime-local", "fromDate", "fromDate", 3, setDates)}
             </Col>
-            <Col><Button color="danger" onClick={() => fetchAndSaveExcelDataOfApplicants()}>Save</Button></Col>
+              <Col><Button color="danger" onClick={() => fetchAndSaveExcelDataOfApplicants()}>Save</Button></Col>
             </Row>
           </Col>
           </Row>
@@ -289,25 +343,48 @@ function downloadFile(fileName){
 
       <br />
       <Card>
-        <CardHeader><h2>Applicant Data</h2></CardHeader>
-        {apiData.length &&
+        <CardHeader><Row><Col md="7"><h2>Applicant Data</h2></Col>
+        <Col md="2"><input type={"range"} min={0} max={filterd.allApplicants.length} value={pageNationCount}  onChange={(e)=>{
+          if(e.target.value>0){
+          setPagenationCount(e.target.value)}
+          else{
+            e.target.value=1;
+            setPagenationCount(1);
+           
+          }
+          }} />{pageNationCount}</Col>
+          <Col md="3"> <input type={"text"} onChange={(e) => {
+            let filter = searchFilter();
+            filter(e)
+          }} placeholder="search" className="form-control" /></Col></Row>
+        </CardHeader>
+        {selectedRow && selectedRow.length &&
           <table className="table table-borderd">
             <thead className="bg-primary text-light"><tr>{
-              Object.keys(_.head(_.cloneDeep(apiData).filter((val)=>delete val["Resume"]))).map(val => (
+              Object.keys(_.head(_.cloneDeep(selectedRow).filter((val) => delete val["Resume"]))).map(val => (
                 <td>{val}</td>
               ))
             }<td>options</td></tr></thead>
             {
-            _.cloneDeep(apiData).filter((val)=>delete val["Resume"]).map((row,index) => {
+              _.cloneDeep(selectedRow).filter((val) => delete val["Resume"]).map((row, index) => {
                 return (<tr>
                   {
                     Object.values(row).map(colValue => (
                       <td>{colValue}</td>
                     ))}
                   <td>
-                    <button className="btn btn-primary text-dark" onClick={() => { setflag(1); getSingleApplicant(row["_id"]); console.log("helllo") }}>view</button>
-                    <button className="btn btn-primary text-dark" onClick={() => { setflag(2); getSingleApplicant(row["_id"]); }}>download</button>
-                    <button className="btn btn-danger text-dark" onClick={()=>downloadFile(apiData[index]["Resume"])}>Resume</button>
+                    <button
+                     className="btn btn-primary text-dark"
+                      onClick={() => { setflag(1); getSingleApplicant(row["_id"]); console.log("helllo") }}
+                    >view</button>
+                    <button
+                     className="btn btn-primary text-dark" 
+                     onClick={() => { setflag(2); getSingleApplicant(row["_id"]); }}>
+                    download</button>
+                    <button
+                    className="btn btn-danger text-dark"
+                    onClick={() => downloadFile(selectedRow[index]["Resume"])}>
+                    Resume</button>
                   </td>
                 </tr>)
               })
@@ -318,9 +395,31 @@ function downloadFile(fileName){
 
 
       </Card>
-      <Col md="3"><Button onClick={() => setmodalView(!modalView)}>Back</Button></Col>
+      {
+        pageIndex
+      }
+      {
+        pageNationArray.length && <nav aria-label="Page navigation example " style={{ clear: "both", position: "absolute", top: "30vw", right: 0 }}>
+          <ul class="pagination">
+            {pageNationArray.map((val, i) => (
+              <li class={pageIndex == i ? "page-item active" : "page-item"} onClick={() => { setPageIndex(i); setSelectedRow(pageNationArray[i]) }}><a class="page-link" href="#">{i}</a></li>
+            ))
+            }
+          </ul>
+        </nav>
+      }
 
-      {/* <Modal isOpen={modalView}  {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" toggle={() => setmodalView(!modalView)} centered>
+
+    </>
+  );
+}
+
+export default ApplicationsReview;
+
+
+{/* <Col md="3"><Button onClick={() => setmodalView(!modalView)}>Back</Button></Col> */ }
+
+{/* <Modal isOpen={modalView}  {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" toggle={() => setmodalView(!modalView)} centered>
         <ModalHeader>Applicant Pdf</ModalHeader>
         <ModalBody>
           {applicantData.length && source && <iframe src={source} height={500} title="pdfViewer" width={800} />}
@@ -329,9 +428,3 @@ function downloadFile(fileName){
           <button className="btn btn-danger" onClick={() => setmodalView(!modalView)}>Close</button>
         </ModalFooter>
       </Modal>      */}
-
-    </>
-  );
-}
-
-export default ApplicationsReview;
