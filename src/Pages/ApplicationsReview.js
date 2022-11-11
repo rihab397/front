@@ -1,14 +1,18 @@
 import { useEffect, useMemo, useState } from "react";
 import * as _ from "lodash"
 import update from 'immutability-helper';
-import { Table, Button, Row, Col, Card, Modal, ModalHeader, ModalBody, ModalFooter, CardHeader, InputGroup } from "reactstrap"
+import { Table, Button, Row, Col, Card, Modal, ModalHeader, ModalBody, ModalFooter, CardHeader, InputGroup, Collapse, CardBody, Label, CardFooter } from "reactstrap"
 import { useDispatch, useSelector } from "react-redux"
+import * as dashboardActions from "../redux/Actions/dashboard"
 import * as applicationActions from "../redux/Actions/ApplicationForm"
 // import ApplicantpdfComponent from "./ApplicantpdfComponent";
 import jsPDF from 'jspdf';
 import { renderToString } from "react-dom/server"
+import "./utils/css/main.css"
 import axios from 'axios';
+import {ChevronDoubleRight,ChevronDoubleDown } from 'react-bootstrap-icons';
 // import _ from "lodash"
+import Header from "../Pages/utils/header"
 
 
 async function ApplicantpdfComponent(applicantData, flag) {
@@ -176,6 +180,8 @@ function ApplicationsReview(props) {
   let [pageNationCount, setPagenationCount] = useState(2);
   let [pageNationArray, setpageNationArray] = useState([])
   let [pageIndex, setPageIndex] = useState(0);
+  let [collapse1, setCollapse1] = useState(true);
+  let [collapse2, setCollapse2] = useState(true);
 
 
 
@@ -206,7 +212,7 @@ function ApplicationsReview(props) {
     }
   }, [filterd])
   let [selectedRow, setSelectedRow] = useState([])
-  function pageNation(filterd){
+  function pageNation(filterd) {
     if (filterd && filterd.allApplicants && filterd.allApplicants.length) {
       let data = filterd.allApplicants
       let arr = [];
@@ -219,7 +225,7 @@ function ApplicationsReview(props) {
           break;
         }
       }
-      
+
       setpageNationArray(arr)
       setSelectedRow(arr[pageIndex])
       setPageIndex(0)
@@ -227,14 +233,14 @@ function ApplicationsReview(props) {
     }
   }
   useEffect(() => {
-    pageNation( filterd)
-  }, [filterd,pageNationCount])
+    pageNation(filterd)
+  }, [filterd, pageNationCount])
 
   function searchFilter(e) {    //throtal function
     let timer;
     return function filter2(e) {
       if (timer) timer = 0
-      else timer = setInterval(() => {
+      else timer = setTimeout(() => {
         if (e.target.value) {
           let temp = _.cloneDeep(pageNationArray[pageIndex]).filter(v => {
             let expr = new RegExp(e.target.value, "i")
@@ -251,11 +257,11 @@ function ApplicationsReview(props) {
     }
   }
 
-  
 
 
-  let applicantData = filterd.webData;
-  let apiData = filterd.allApplicants;
+
+  // let applicantData = filterd.webData;
+  // let apiData = filterd.allApplicants;
   let [FromEndDate, setFromEndDate] = useState({});
 
 
@@ -313,93 +319,115 @@ function ApplicationsReview(props) {
 
   return (
     <>
-      <Card>
-        <CardHeader><h2>filter Applicant</h2></CardHeader>
-        <Row>
+        <Header headerName="Applicant Review Page" />
+    <br/>
+        <Card>
+          <CardHeader className="bg-secondary" > <Row><Col md={7} className="text-light">
+              <span style={{fontSize:"15px"}}>Filters and Excel Data</span> &nbsp;&nbsp;
+              {collapse1?<ChevronDoubleDown onClick={()=>setCollapse1(!collapse1)}/>:<ChevronDoubleRight onClick={()=>setCollapse1(!collapse1)}/>}
+            
+            </Col></Row></CardHeader>
+      <Collapse isOpen={collapse1} style={{width:"100%"}} >
+            <CardBody>
           <Row>
-            <Col>
-              <label for="setDates">Find Applicants of a particular Date</label>
-              <Row>
-                <Col><Row><InputGroup className="formControl">
-                  {returnControl("datetime-local", "fromDate", "fromDate", 3, setDates)}
-                  <Col>&nbsp;</Col>
-                  <Col><p>To</p></Col>
-                  {returnControl("datetime-local", "EndDate", "EndDate", 3, setDates)}
-                </InputGroup></Row></Col>
+            <Row>
+              <Col>
+                <label for="setDates">Find Applicants of a particular Date</label>
+                <Row>
+                  <Col><Row><InputGroup className="formControl">
+                    {returnControl("datetime-local", "fromDate", "fromDate", 3, setDates)}
+                    <Col>&nbsp;</Col>
+                    <Col><p>To</p></Col>
+                    {returnControl("datetime-local", "EndDate", "EndDate", 3, setDates)}
+                  </InputGroup></Row></Col>
+                  <Col><Button color="danger" onClick={() => fetchAndSaveExcelDataOfApplicants()}>Save</Button></Col>
+                </Row>
+              </Col>
+            </Row>
+            <Row><Col>
+              <label for="setDates">Find Applicants between a Date Range</label>
+              <Row> <Col>{returnControl("datetime-local", "fromDate", "fromDate", 3, setDates)}
+              </Col>
                 <Col><Button color="danger" onClick={() => fetchAndSaveExcelDataOfApplicants()}>Save</Button></Col>
               </Row>
             </Col>
-          </Row>
-          <Row><Col>
-            <label for="setDates">Find Applicants between a Date Range</label>
-            <Row> <Col>{returnControl("datetime-local", "fromDate", "fromDate", 3, setDates)}
-            </Col>
-              <Col><Button color="danger" onClick={() => fetchAndSaveExcelDataOfApplicants()}>Save</Button></Col>
             </Row>
-          </Col>
           </Row>
-        </Row>
-      </Card>
-
+          </CardBody>
+      </Collapse >
+        </Card>
       <br />
-      <Card>
-        <CardHeader><Row><Col md="7"><h2>Applicant Data</h2></Col>
-        <Col md="2"><input type={"range"} min={0} max={filterd.allApplicants.length} value={pageNationCount}  onChange={(e)=>{
-          if(e.target.value>0){
-          setPagenationCount(e.target.value)}
-          else{
-            e.target.value=1;
-            setPagenationCount(1);
-           
-          }
-          }} />{pageNationCount}</Col>
-          <Col md="3"> <input type={"text"} onChange={(e) => {
-            let filter = searchFilter();
-            filter(e)
-          }} placeholder="search" className="form-control" /></Col></Row>
-        </CardHeader>
-        {selectedRow && selectedRow.length &&
-          <table className="table table-borderd">
-            <thead className="bg-primary text-light"><tr>{
-              Object.keys(_.head(_.cloneDeep(selectedRow).filter((val) => delete val["Resume"]))).map(val => (
-                <td>{val}</td>
-              ))
-            }<td>options</td></tr></thead>
-            {
-              _.cloneDeep(selectedRow).filter((val) => delete val["Resume"]).map((row, index) => {
-                return (<tr>
-                  {
-                    Object.values(row).map(colValue => (
-                      <td>{colValue}</td>
-                    ))}
-                  <td>
-                    <button
-                     className="btn btn-primary text-dark"
-                      onClick={() => { setflag(1); getSingleApplicant(row["_id"]); console.log("helllo") }}
-                    >view</button>
-                    <button
-                     className="btn btn-primary text-dark" 
-                     onClick={() => { setflag(2); getSingleApplicant(row["_id"]); }}>
-                    download</button>
-                    <button
-                    className="btn btn-danger text-dark"
-                    onClick={() => downloadFile(selectedRow[index]["Resume"])}>
-                    Resume</button>
-                  </td>
-                </tr>)
-              })
-            }
+   
+        <Card>
+          <Row>
 
-          </table>
-        }
+          </Row>
+          <CardHeader className="bg-secondary" >
+            <Row>
+            <Col md={7} className="text-light">
+              <span style={{fontSize:"15px"}}>Applicant Data</span> &nbsp;&nbsp;
+              {collapse2?<ChevronDoubleDown onClick={()=>setCollapse2(!collapse2)}/>:<ChevronDoubleRight onClick={()=>setCollapse2(!collapse2)}/>}
+            
+            </Col>
+         
+             <Col md="2"><input type={"range"} min={0} max={filterd.allApplicants.length} value={pageNationCount} onChange={(e) => {
+                if (e.target.value > 0) {
+                  setPagenationCount(e.target.value)
+                }
+                else {
+                  e.target.value = 1;
+                  setPagenationCount(1);
 
+                }
+              }} />{pageNationCount}</Col>
+              <Col md="3"> <input type={"text"} onChange={(e) => {
+                let filter = searchFilter();
+                filter(e)
+              }} placeholder="search" className="form-control" /></Col>
+           </Row>
+          </CardHeader>
+         
+          <Collapse isOpen={collapse2}  style={{width:"100%"}}>
+          <CardBody style={{width:"100%"}}>
+            {selectedRow && selectedRow.length &&
+              <table className="table table-borderd">
+                <thead className="bg-primary text-light"><tr>{
+                  Object.keys(_.head(_.cloneDeep(selectedRow).filter((val) => delete val["Resume"]))).map(val => (
+                    <td>{val}</td>
+                  ))
+                }<td>options</td></tr></thead>
+                {
+                  _.cloneDeep(selectedRow).filter((val) => delete val["Resume"]).map((row, index) => {
+                    return (<tr>
+                      {
+                        Object.values(row).map(colValue => (
+                          <td>{colValue}</td>
+                        ))}
+                      <td>
+                        <button
+                          className="btn btn-primary text-dark"
+                          onClick={() => { setflag(1); getSingleApplicant(row["_id"]); console.log("helllo") }}
+                        >view</button>
+                        <button
+                          className="btn btn-primary text-dark"
+                          onClick={() => { setflag(2); getSingleApplicant(row["_id"]); }}>
+                          download</button>
+                        <button
+                          className="btn btn-danger text-dark"
+                          onClick={() => downloadFile(selectedRow[index]["Resume"])}>
+                          Resume</button>
+                      </td>
+                    </tr>)
+                  })
+                }
 
-      </Card>
+              </table>
+            } 
+          </CardBody>
+          <CardFooter >
+            
       {
-        pageIndex
-      }
-      {
-        pageNationArray.length && <nav aria-label="Page navigation example " style={{ clear: "both", position: "absolute", top: "30vw", right: 0 }}>
+        pageNationArray.length && <nav aria-label="Page navigation example " >
           <ul class="pagination">
             {pageNationArray.map((val, i) => (
               <li class={pageIndex == i ? "page-item active" : "page-item"} onClick={() => { setPageIndex(i); setSelectedRow(pageNationArray[i]) }}><a class="page-link" href="#">{i}</a></li>
@@ -408,7 +436,13 @@ function ApplicationsReview(props) {
           </ul>
         </nav>
       }
-
+          </CardFooter>
+           </Collapse>
+        
+        </Card>
+     
+  
+<Button onClick={()=>{dispatch({type:dashboardActions.FETCH_DASHBOARD_DATA_REQUEST});console.log("dd")}}>test</Button>
 
     </>
   );

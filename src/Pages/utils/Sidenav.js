@@ -1,12 +1,15 @@
 
 import React, { useState } from "react";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import {
     useNavigate,
     NavLink
 } from "react-router-dom";
+import ApplicationsReview from "../ApplicationsReview";
 import "./css/style.css"
 export default function Sidebar() {
-    let [isOpen, setIsOpen] = useState(false)
+    // let [isOpen, setIsOpen] = useState(false)
     document.addEventListener("DOMContentLoaded", function (event) {
 
         const showNavbar = (toggleId, navId, bodyId, headerId) => {
@@ -39,39 +42,25 @@ export default function Sidebar() {
         linkColor.forEach(l => l.addEventListener('click', colorLink))
 
     });
-    let navigate = useNavigate()
+
+    let {isOpen}=useSelector((state) => state.header)
+
     return (
 
         <>
-            <header className="header" id="header">
-                <div className="header_toggle"> <i className='bx bx-menu' id="header-toggle">
-                    <button onClick={() => setIsOpen(!isOpen)}>{isOpen ? "close" : "open"}</button>
-                </i> </div>
-            </header>
-            <div className="l-navbar" id="nav-bar" style={{ width: isOpen ? "15rem" : "0rem", right: isOpen ? "0rem" : "2rem" }}>
+    
+            <div className="l-navbar" id="nav-bar" style={{ width: isOpen ? "16rem" : "1rem", marginRight: isOpen ? "0rem" : "4rem" }}>
                 <nav className="nav">
                     <div>
                         {/* <a href="#" className="nav_logo"> <i className='bx bx-layer nav_logo-icon'></i> <span className="nav_logo-name">BBBootstrap</span> </a> */}
                         <div className="nav_list">
-                            <NavLink className="nav_link" to="/">
-                                <i className='bx bx-grid-alt nav_icon'></i>
-                                <span className="nav_name">Dashboard</span>
-                            </NavLink>
-                            <NavLink className="nav_link" to="/expenses">
-                                <i className='bx bx-user nav_icon'></i>
-                                <span className="nav_name">Expenses</span>
-                            </NavLink>
-                            <NavLink className="nav_link" to="/invoices">
-                                <i className='bx bx-user nav_icon'></i>
-                                <span className="nav_name">invoices</span>
-                            </NavLink>
-                            <NavLink className="nav_link" to="/DynamicTable">
-                                <i className='bx bx-user nav_icon'></i>
-                                <span className="nav_name">DynamicTable</span>
-                            </NavLink>
                             <NavLink className="nav_link" to="/ApplicationForm">
                                 <i className='bx bx-user nav_icon'></i>
                                 <span className="nav_name">ApplicationForm</span>
+                            </NavLink>
+                            <NavLink className="nav_link" to="/ApplicationsReview">
+                                <i className='bx bx-user nav_icon'></i>
+                                <span className="nav_name">ApplicationsReview</span>
                             </NavLink>
                             {/* <NavLink className="nav_link" to="/Applicantpdf">
                                 <i className='bx bx-user nav_icon'></i>
@@ -87,3 +76,41 @@ export default function Sidebar() {
     )
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  {/* <NavLink className="nav_link" to="/">
+                                <i className='bx bx-grid-alt nav_icon'></i>
+                                <span className="nav_name">Dashboard</span>
+                            </NavLink>
+                            <NavLink className="nav_link" to="/expenses">
+                                <i className='bx bx-user nav_icon'></i>
+                                <span className="nav_name">Expenses</span>
+                            </NavLink>
+                            <NavLink className="nav_link" to="/invoices">
+                                <i className='bx bx-user nav_icon'></i>
+                                <span className="nav_name">invoices</span>
+                            </NavLink>
+                            <NavLink className="nav_link" to="/DynamicTable">
+                                <i className='bx bx-user nav_icon'></i>
+                                <span className="nav_name">DynamicTable</span>
+                            </NavLink> */}

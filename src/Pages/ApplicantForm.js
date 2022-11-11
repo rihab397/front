@@ -10,6 +10,7 @@ import ReactTooltip from "react-tooltip";
 // v.SectionTitle == "PermanentDetails" &&<Clipboard size={5} color="balck"  onClick={(e) => copyContactDetails(e)} /> 
 import { Clipboard } from 'react-bootstrap-icons';
 import { json, Navigate, useNavigate } from 'react-router-dom';
+import Header from "../Pages/utils/header"
 let QualificationRowformat =
     [
         { type: "text", md: 1, label: "Qualification", name: "qualification", validate: true, disable: false, set: false,validate:false },
@@ -106,7 +107,7 @@ function ApplicationForm(props) {
     let ExpreinceRequired = 5;
     let [filtered, setFiltered] = useState({})
     let [tempString, setTempString] = useState()
-    let [valid,setValid]=useState(false);
+    let [valid,setValid]=useState(true);
     let [enableSubmit,setEnableSubmit]=useState(true);
     let navigate=useNavigate();
     useEffect(() => {
@@ -521,9 +522,8 @@ useEffect(()=>{
         }
     }
     return (<>
-        {
-            JSON.stringify(filtered)
-        }
+    <Header headerName="Appliaction form" />
+        
         <form encType='muptipart/form-data'><Row><h1 style={{ textAlign: "center" }}>Application Form</h1></Row>
             <Row>
                 {
