@@ -6,8 +6,8 @@ import {
     useNavigate,
     NavLink
 } from "react-router-dom";
-import ApplicationsReview from "../ApplicationsReview";
 import "./css/style.css"
+
 export default function Sidebar() {
     // let [isOpen, setIsOpen] = useState(false)
     document.addEventListener("DOMContentLoaded", function (event) {
@@ -54,6 +54,10 @@ export default function Sidebar() {
                     <div>
                         {/* <a href="#" className="nav_logo"> <i className='bx bx-layer nav_logo-icon'></i> <span className="nav_logo-name">BBBootstrap</span> </a> */}
                         <div className="nav_list">
+                            <NavLink className="nav_link" to="/Dashboard">
+                                <i className='bx bx-user nav_icon'></i>
+                                <span className="nav_name">Dashboard</span>
+                            </NavLink>
                             <NavLink className="nav_link" to="/ApplicationForm">
                                 <i className='bx bx-user nav_icon'></i>
                                 <span className="nav_name">ApplicationForm</span>

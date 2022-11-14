@@ -10,7 +10,7 @@ import jsPDF from 'jspdf';
 import { renderToString } from "react-dom/server"
 import "./utils/css/main.css"
 import axios from 'axios';
-import {ChevronDoubleRight,ChevronDoubleDown } from 'react-bootstrap-icons';
+import { ChevronDoubleRight, ChevronDoubleDown, Filter } from 'react-bootstrap-icons';
 // import _ from "lodash"
 import Header from "../Pages/utils/header"
 
@@ -251,7 +251,7 @@ function ApplicationsReview(props) {
           setSelectedRow(temp)
         }
         else {
-          setSelectedRow(_.cloneDeep(pageNationArray)[0])
+          setSelectedRow(_.cloneDeep(pageNationArray)[pageIndex])
         }
       }, 1000);
     }
@@ -263,6 +263,13 @@ function ApplicationsReview(props) {
   // let applicantData = filterd.webData;
   // let apiData = filterd.allApplicants;
   let [FromEndDate, setFromEndDate] = useState({});
+  let Categorries = [{ id: 1, label: "Genral", value: "Genral" },
+  { id: 2, label: "SC", value: "SC" },
+  { id: 3, label: "ST", value: "ST" },
+  { id: 4, label: "OBC", value: "OBC" },
+  { id: 5, label: "EWS", value: "EWS" }
+  ];
+  let [CategoryFilter, setCategoryFilter] = useState();
 
 
   function getSingleApplicant(id) {
@@ -290,6 +297,9 @@ function ApplicationsReview(props) {
         window.URL.revokeObjectURL(url);
       });
   }
+  // useEffect(()=>{
+  //  selectedRow.filter((val)=>val.Catetogry)
+  // },[CategoryFilter]);
 
   async function fetchAndSaveExcelDataOfApplicants() {
     if (Object.keys(FromEndDate).length > 0) {
@@ -319,76 +329,108 @@ function ApplicationsReview(props) {
 
   return (
     <>
-        <Header headerName="Applicant Review Page" />
-    <br/>
-        <Card>
-          <CardHeader className="bg-secondary" > <Row><Col md={7} className="text-light">
-              <span style={{fontSize:"15px"}}>Filters and Excel Data</span> &nbsp;&nbsp;
-              {collapse1?<ChevronDoubleDown onClick={()=>setCollapse1(!collapse1)}/>:<ChevronDoubleRight onClick={()=>setCollapse1(!collapse1)}/>}
-            
-            </Col></Row></CardHeader>
-      <Collapse isOpen={collapse1} style={{width:"100%"}} >
-            <CardBody>
-          <Row>
+      <Header headerName="Applicant Review Page" />
+      <br />
+      <Card>
+        <CardHeader className="bg-secondary" > <Row><Col md={7} className="text-light">
+          <span style={{ fontSize: "15px" }}>Filters and Excel Data</span> &nbsp;&nbsp;
+          {collapse1 ? <ChevronDoubleDown onClick={() => setCollapse1(!collapse1)} /> : <ChevronDoubleRight onClick={() => setCollapse1(!collapse1)} />}
+
+        </Col></Row></CardHeader>
+        <Collapse isOpen={collapse1} style={{ width: "100%" }} >
+          <CardBody>
             <Row>
-              <Col>
-                <label for="setDates">Find Applicants of a particular Date</label>
-                <Row>
-                  <Col><Row><InputGroup className="formControl">
-                    {returnControl("datetime-local", "fromDate", "fromDate", 3, setDates)}
-                    <Col>&nbsp;</Col>
-                    <Col><p>To</p></Col>
-                    {returnControl("datetime-local", "EndDate", "EndDate", 3, setDates)}
-                  </InputGroup></Row></Col>
+              <Row>
+                <Col >
+                  <label for="setDates">Find Applicants of a particular Date</label>
+                  <Row>
+                    <Col md="6">
+                      <Row><InputGroup className="formControl">
+                        {returnControl("datetime-local", "fromDate", "fromDate", 3, setDates)}
+                        <Col>&nbsp;</Col>
+                        <Col><p>To</p></Col>
+                        {returnControl("datetime-local", "EndDate", "EndDate", 3, setDates)}
+                      </InputGroup></Row></Col>
+                    <Col><Button color="danger" onClick={() => fetchAndSaveExcelDataOfApplicants()}>Save</Button></Col>
+                    <Col>
+                     
+
+                      <select
+                        placeholder="Select here"
+                        className="form-control"
+                        onChange={(e) => {
+                          let temp = pageNationArray[pageIndex];
+                          setSelectedRow(temp.filter(app => app.Category == e.target.value))
+                          setCategoryFilter(e.target.value)
+                        }}>
+                        <option style={{ display: "none" }} ></option>
+                        {
+                          Categorries.map((val) => (
+                            <option>{val.label}</option>
+                          ))
+                        }
+                      </select>
+                    </Col>
+                    <Col>
+                      {
+                        CategoryFilter && <Button className="btn btn-danger" onClick={() => {
+                          setCategoryFilter("");
+                          setSelectedRow(pageNationArray[pageIndex]);
+                        }}>
+                          Clear Filter
+                          <Filter size={20} color="white" />
+                        </Button>
+                      }
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+              <Row><Col>
+                <label for="setDates">Find Applicants between a Date Range</label>
+                <Row> <Col>{returnControl("datetime-local", "fromDate", "fromDate", 3, setDates)}
+                </Col>
                   <Col><Button color="danger" onClick={() => fetchAndSaveExcelDataOfApplicants()}>Save</Button></Col>
                 </Row>
               </Col>
-            </Row>
-            <Row><Col>
-              <label for="setDates">Find Applicants between a Date Range</label>
-              <Row> <Col>{returnControl("datetime-local", "fromDate", "fromDate", 3, setDates)}
-              </Col>
-                <Col><Button color="danger" onClick={() => fetchAndSaveExcelDataOfApplicants()}>Save</Button></Col>
               </Row>
-            </Col>
             </Row>
-          </Row>
           </CardBody>
-      </Collapse >
-        </Card>
+        </Collapse >
+      </Card>
       <br />
-   
-        <Card>
+
+      <Card>
+        <Row>
+
+        </Row>
+        <CardHeader className="bg-secondary" >
           <Row>
-
-          </Row>
-          <CardHeader className="bg-secondary" >
-            <Row>
             <Col md={7} className="text-light">
-              <span style={{fontSize:"15px"}}>Applicant Data</span> &nbsp;&nbsp;
-              {collapse2?<ChevronDoubleDown onClick={()=>setCollapse2(!collapse2)}/>:<ChevronDoubleRight onClick={()=>setCollapse2(!collapse2)}/>}
-            
-            </Col>
-         
-             <Col md="2"><input type={"range"} min={0} max={filterd.allApplicants.length} value={pageNationCount} onChange={(e) => {
-                if (e.target.value > 0) {
-                  setPagenationCount(e.target.value)
-                }
-                else {
-                  e.target.value = 1;
-                  setPagenationCount(1);
+              <span style={{ fontSize: "15px" }}>Applicant Data</span> &nbsp;&nbsp;
+              {collapse2 ? <ChevronDoubleDown onClick={() => setCollapse2(!collapse2)} /> : <ChevronDoubleRight onClick={() => setCollapse2(!collapse2)} />}
 
-                }
-              }} />{pageNationCount}</Col>
-              <Col md="3"> <input type={"text"} onChange={(e) => {
-                let filter = searchFilter();
-                filter(e)
-              }} placeholder="search" className="form-control" /></Col>
-           </Row>
-          </CardHeader>
-         
-          <Collapse isOpen={collapse2}  style={{width:"100%"}}>
-          <CardBody style={{width:"100%"}}>
+            </Col>
+
+            <Col md="2"><input type={"range"} min={0} max={filterd.allApplicants.length} value={pageNationCount} onChange={(e) => {
+              if (e.target.value > 0) {
+                setPagenationCount(e.target.value);
+                setPageIndex(0)
+              }
+              else {
+                e.target.value = 1;
+                setPagenationCount(1);
+                setPageIndex(0)
+              }
+            }} />{pageNationCount}</Col>
+            <Col md="3"> <input type={"text"} onChange={(e) => {
+              let filter = searchFilter();
+              filter(e)
+            }} placeholder="search" className="form-control" /></Col>
+          </Row>
+        </CardHeader>
+
+        <Collapse isOpen={collapse2} style={{ width: "100%" }}>
+          <CardBody style={{ width: "100%" }}>
             {selectedRow && selectedRow.length &&
               <table className="table table-borderd">
                 <thead className="bg-primary text-light"><tr>{
@@ -422,27 +464,29 @@ function ApplicationsReview(props) {
                 }
 
               </table>
-            } 
+            }
           </CardBody>
           <CardFooter >
-            
-      {
-        pageNationArray.length && <nav aria-label="Page navigation example " >
-          <ul class="pagination">
-            {pageNationArray.map((val, i) => (
-              <li class={pageIndex == i ? "page-item active" : "page-item"} onClick={() => { setPageIndex(i); setSelectedRow(pageNationArray[i]) }}><a class="page-link" href="#">{i}</a></li>
-            ))
+            {
+              pageIndex
             }
-          </ul>
-        </nav>
-      }
+
+            {
+              pageNationArray.length && <nav aria-label="Page navigation example " >
+                <ul class="pagination">
+                  {pageNationArray.map((val, i) => (
+                    <li class={pageIndex == i ? "page-item active" : "page-item"} onClick={() => { setPageIndex(i); setSelectedRow(pageNationArray[i]) }}><a class="page-link" href="#">{i}</a></li>
+                  ))
+                  }
+                </ul>
+              </nav>
+            }
           </CardFooter>
-           </Collapse>
-        
-        </Card>
-     
-  
-<Button onClick={()=>{dispatch({type:dashboardActions.FETCH_DASHBOARD_DATA_REQUEST});console.log("dd")}}>test</Button>
+        </Collapse>
+
+      </Card>
+
+
 
     </>
   );
@@ -451,14 +495,3 @@ function ApplicationsReview(props) {
 export default ApplicationsReview;
 
 
-{/* <Col md="3"><Button onClick={() => setmodalView(!modalView)}>Back</Button></Col> */ }
-
-{/* <Modal isOpen={modalView}  {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" toggle={() => setmodalView(!modalView)} centered>
-        <ModalHeader>Applicant Pdf</ModalHeader>
-        <ModalBody>
-          {applicantData.length && source && <iframe src={source} height={500} title="pdfViewer" width={800} />}
-        </ModalBody>
-        <ModalFooter>
-          <button className="btn btn-danger" onClick={() => setmodalView(!modalView)}>Close</button>
-        </ModalFooter>
-      </Modal>      */}

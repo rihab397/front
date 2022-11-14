@@ -77,7 +77,7 @@ function ApplicationForm(props) {
         { disable: false, set: true, type: "text", md: 3, label: "Mobile", name: "PemanentMobile", function: "", Parent: "PermanentDetails", validate: true },
         { disable: false, set: true, type: "text", md: 3, label: "Phone", name: "PermanentPhone", function: "", Parent: "PermanentDetails", validate: true },
         {
-            disable: false, set: true, type: "text", SectionTitle: "Qualification", md: 12, label: "Qualification", name: "Qualification", function: "", validate: false, fields: [], intaialCount: 4, rowFormat: [
+            disable: false, set: true, type: "text", SectionTitle: "Qualification", md: 12, label: "Qualification", name: "Qualification", function: "", validate: true, fields: [], intaialCount: 4, rowFormat: [
                 { id: 0, Name: "Matric", rowData:JSON.parse(JSON.stringify( QualificationRowformat)) },
                 { id: 1, Name: "PostMatric", rowData: JSON.parse(JSON.stringify( QualificationRowformat)) },
                 { id: 2, Name: "Graduation", rowData: JSON.parse(JSON.stringify( QualificationRowformat)) },
@@ -85,7 +85,7 @@ function ApplicationForm(props) {
             ]
         },
         {
-            disable: false, set: true, type: "text", SectionTitle: "EmployementDetail", md: 12, label: "Qualification", name: "Qualification", function: "", validate: false, fields: [], intaialCount: 4, rowFormat: [
+            disable: false, set: true, type: "text", SectionTitle: "EmployementDetail", md: 12, label: "Qualification", name: "Qualification", function: "", validate: true, fields: [], intaialCount: 4, rowFormat: [
                 { id: 0, Name: "Ex1", rowData: JSON.parse(JSON.stringify( EmployementRowFormat))},
                 { id: 1, Name: "Ex2", rowData: JSON.parse(JSON.stringify( EmployementRowFormat)) },
                 { id: 2, Name: "Ex3", rowData: JSON.parse(JSON.stringify( EmployementRowFormat)) },
@@ -107,7 +107,7 @@ function ApplicationForm(props) {
     let ExpreinceRequired = 5;
     let [filtered, setFiltered] = useState({})
     let [tempString, setTempString] = useState()
-    let [valid,setValid]=useState(true);
+    // let [valid,setValid]=useState(true);
     let [enableSubmit,setEnableSubmit]=useState(true);
     let navigate=useNavigate();
     useEffect(() => {
@@ -125,10 +125,11 @@ function ApplicationForm(props) {
     }
     
     let validate = () => {
+        let valid=true;
         vendorform1.map((row, index) => {
             if (!row.rowFormat && row.validate && !row.Parent) {
                 if (!filtered[row.name]) {
-                    setValid(false)
+                  valid=false;
                     vendorform1[index]["error"] = `Please fill the ${row.label} `
                     setVendorform1([...vendorform1])
                     // toast(`Please fill ${row.label}`)
@@ -136,24 +137,24 @@ function ApplicationForm(props) {
                 }
                 else {
                     vendorform1[index]["error"] = false
-                    setValid(true)
+                  
                 }
             }
 
             if (row.Parent && row.Parent !== "Guardian" && row.validate) {
                 if (filtered && filtered[row.Parent] && filtered[row.Parent][row.name]) {
                     vendorform1[index]["error"] = false
-                    setValid(true)
+                
                 }
                 else if(filtered && filtered[row.Parent] && !filtered[row.Parent][row.name]){
-                    setValid(false)
+                  valid=false;
                     vendorform1[index]["error"] = `Please fill the ${row.label} `
                     setVendorform1([...vendorform1])
                     // toast(`Please fill ${row.label}`)
 
                 }
                 else {
-                    setValid(false)
+                  valid=false;
                     vendorform1[index]["error"] = `Please fill the ${row.label} `
                     setVendorform1([...vendorform1])
                     // toast(`Please fill ${row.label}`)
@@ -169,15 +170,15 @@ function ApplicationForm(props) {
                     val.rowData.forEach((row2, i) => {
                         if (filtered[row.name] && filtered[row.name].some(v => v.Name == val.Name) &&  filtered[row.name][filtered[row.name].findIndex(v => v.Name == val.Name)][row2.name] ) { //if name present and key value presen 
                             vendorform1[index].rowFormat[indx]["rowData"][i]["error"] = false
-                            setValid(true)
+                 
                         }
                         if (filtered[row.name] && filtered[row.name].some(v => v.Name == val.Name) && row2.validate && !filtered[row.name][filtered[row.name].findIndex(v => v.Name == val.Name)][row2.name] ) { //if name present and key value presen 
-                            setValid(false)      
+                          valid=false;      
                             vendorform1[index].rowFormat[indx]["rowData"][i]["error"] = `Please fill the ${row2.label} `
                         }
                         else if( !filtered[row.name]){
                             if(val.Name=="Ex1" || val.Name=="Matric"){
-                                setValid(false)
+                              valid=false;
                                  vendorform1[index].rowFormat[indx]["rowData"][i]["error"] = `Please fill the ${row2.label} `
                             }
                         }
@@ -191,11 +192,9 @@ function ApplicationForm(props) {
             let exp =  filtered["EmployementDetail"].filter(v => v["ExperinceYear"]).map(v => v["ExperinceYear"].split(" ")[0].replace("Y",""))
             if (exp < ExpreinceRequired) {
                 document.getElementById("experienceError").innerHTML = `Expreince Should have atleast ${ExpreinceRequired} `
-                setValid(false)
+              valid=false;
             }
-            else{
-                setValid(true)
-            }
+           
 
         }
       
@@ -404,7 +403,16 @@ useEffect(()=>{
                         placeholder={v.label}
                         required={v.validate}
                         className="form-control"
-                        onChange={e => setFiltered({ ...filtered, [e.target.name]: e.target.files[0] })}
+                        onChange={e =>{
+                            if(e.target.files[0].size>20000){
+                                e.target.files=null
+                                let vendorform2=_.cloneDeep(vendorform1);
+                                vendorform2[vendorform2.findIndex(val=>val.name==v.name)]["error"]="Please choose file size 20kb or less";
+                                setVendorform1([...vendorform2])
+                            }
+                            else{                                
+                                setFiltered({ ...filtered, [e.target.name]: e.target.files[0] })}}
+                            }
                     /></Col>
                     {v.error && <p className='text-danger'>{v.error}</p>}
                 </Col></>)

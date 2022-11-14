@@ -2,7 +2,7 @@ import axios from "axios";
 import { call, takeEvery, put } from "redux-saga/effects";
 import * as type from "../Actions/dashboard"
 import Axios from '../../axiosInterceptor';
-import _ from "lodash";
+import _, { values } from "lodash";
 // import { Label } from "reactstrap";
 
 
@@ -29,11 +29,16 @@ function* callapi(action) {
              });
 
              let todayApplier=dataCopy.filter((val)=>{
-                 if((new Date(`${date.getMonth() + 1}-${date.getDate()}-${date.getFullYear()}`))==new Date(val.Date)){
+                 if( String(new Date(`${date.getMonth() + 1}-${date.getDate()}-${date.getFullYear()}`))==String( new Date(val.Date))){
                     return(val)
                  }
              }).length
-             result ={allApplicants,currentMonthApplier,gender,todayApplier}
+
+
+           let chartData= [Object.entries(_.groupBy(data.data,"Category")).map(([key,value])=>{
+            return({[key]:value.length})
+          })].map(val=>{let label=[]; let data=[]; val.forEach(v=>{ label.push(Object.keys(v)[0]);data.push(Object.values(v)[0])});return([label,data])})[0]
+             result ={allApplicants,currentMonthApplier,gender,todayApplier,chartData}
 
         yield put({ type: type.FETCH_DASHBOARD_DATA_SUCCESS, payload:result})
         
