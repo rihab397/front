@@ -3,6 +3,7 @@ import DynamicTable from "../DynamicTable";
 import ApplicationForm from "../ApplicantForm";
 import Applicantpdf from "../Applicantpdf"
 import ApplicationsReview from "../ApplicationsReview";
+import Login from "../Login";
 function Expenses() {
     return (
       <main style={{ padding: "1rem 0" }}>
@@ -26,5 +27,6 @@ export function Routers(params) {
         <Route path="/ApplicationForm" className="nav_link" element={<ApplicationForm />} />
         <Route path="/Applicantpdf/:id" className="nav_link" element={<Applicantpdf />} />
         <Route path="/ApplicationsReview" className="nav_link" element={<ApplicationsReview />} />
+        <Route path="/Login" className="nav_link" element={<Login />} />
     </Routes>)
 }

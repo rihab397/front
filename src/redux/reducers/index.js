@@ -5,6 +5,8 @@ import { fetchcitystates} from "./CityStates";
 import {Carrer} from "./ApplicationForm"
 import {header} from "./header"
 import { dashboardData } from "./dashboard";
+import Loader from "./Loader";
+import { Auth } from "./auth";
 
 export default combineReducers({
   fetchinvestor,
@@ -12,5 +14,7 @@ export default combineReducers({
   fetchcitystates,
   Carrer,
   header,
-  dashboardData
+  dashboardData,
+  Loader,
+  Auth
 })

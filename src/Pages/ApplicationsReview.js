@@ -13,6 +13,7 @@ import axios from 'axios';
 import {ChevronDoubleRight,ChevronDoubleDown } from 'react-bootstrap-icons';
 // import _ from "lodash"
 import Header from "../Pages/utils/header"
+import * as loaderActions from "../redux/Actions/Loader"
 
 
 async function ApplicantpdfComponent(applicantData, flag) {
@@ -442,7 +443,9 @@ function ApplicationsReview(props) {
         </Card>
      
   
-<Button onClick={()=>{dispatch({type:dashboardActions.FETCH_DASHBOARD_DATA_REQUEST});console.log("dd")}}>test</Button>
+<Button onClick={()=>{dispatch({type:dashboardActions.FETCH_DASHBOARD_DATA_REQUEST});console.log("dd");
+dispatch({type:loaderActions.LOADING_START,payload:true})
+}}>test</Button>
 
     </>
   );

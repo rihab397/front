@@ -2,6 +2,7 @@ import axios from "axios";
 import { call, takeEvery, put } from "redux-saga/effects";
 import Axios from '../../axiosInterceptor';
 import * as type from "../Actions/ApplicationForm";
+import * as loaderActions from "../Actions/Loader"
 
 
 
@@ -22,9 +23,11 @@ function* callapi(action) {
                 fd.set(key,value)
             }
           })
-            let result = yield axios.post(`http://localhost:4000/Career/Save`,fd);
-              
+         
+            let result = yield Axios(`/Career/Save`,fd);
+            
             yield put({ type: type.CAREER_APPLICATION_SUBMIT_SUCCESS, payload:result.data})
+            yield put({type:loaderActions.LOADING_END,payload:false})
     }
     catch (er) {
         yield put({ type: type.CAREER_APPLICATION_SUBMIT_FAILURE, payload: er })

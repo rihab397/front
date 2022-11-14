@@ -1,7 +1,7 @@
 import * as types from "../Actions/header";
 
 const initialState = {   
-    isOpen:false
+    isOpen:true
 }
 
 
