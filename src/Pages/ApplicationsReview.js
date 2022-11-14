@@ -13,6 +13,7 @@ import axios from 'axios';
 import { ChevronDoubleRight, ChevronDoubleDown, Filter } from 'react-bootstrap-icons';
 // import _ from "lodash"
 import Header from "../Pages/utils/header"
+import * as loaderActions from "../redux/Actions/Loader"
 
 
 async function ApplicantpdfComponent(applicantData, flag) {
@@ -482,11 +483,22 @@ function ApplicationsReview(props) {
               </nav>
             }
           </CardFooter>
+<<<<<<< HEAD
         </Collapse>
 
       </Card>
 
 
+=======
+           </Collapse>
+        
+        </Card>
+     
+  
+<Button onClick={()=>{dispatch({type:dashboardActions.FETCH_DASHBOARD_DATA_REQUEST});console.log("dd");
+dispatch({type:loaderActions.LOADING_START,payload:true})
+}}>test</Button>
+>>>>>>> 684381817d4a5d02befe980d2b51853d69c183b0
 
     </>
   );

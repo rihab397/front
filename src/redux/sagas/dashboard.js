@@ -1,15 +1,23 @@
 import axios from "axios";
 import { call, takeEvery, put } from "redux-saga/effects";
 import * as type from "../Actions/dashboard"
+import * as loaderActions from "../Actions/Loader"
+
 import Axios from '../../axiosInterceptor';
+<<<<<<< HEAD
 import _, { values } from "lodash";
+=======
+import _ from "lodash";
+import { useDispatch } from "react-redux";
+>>>>>>> 684381817d4a5d02befe980d2b51853d69c183b0
 // import { Label } from "reactstrap";
 
 
 function* callapi(action) {
+    // let dispatch=useDispatch();
     // let x=action;
     try {
-        let {data} = yield axios.get(`http://localhost:4000/Career/dashBoardData`);
+        let {data} = yield yield Axios(`/dashBoardData`);
         let result={}
              let allApplicants=data.data.length;
              let dataCopy=_.cloneDeep(data.data);
@@ -40,11 +48,17 @@ function* callapi(action) {
           })].map(val=>{let label=[]; let data=[]; val.forEach(v=>{ label.push(Object.keys(v)[0]);data.push(Object.values(v)[0])});return([label,data])})[0]
              result ={allApplicants,currentMonthApplier,gender,todayApplier,chartData}
 
+            //  setInterval(() => {
+                yield put({type:loaderActions.LOADING_END,payload:false})
+          
+
+
         yield put({ type: type.FETCH_DASHBOARD_DATA_SUCCESS, payload:result})
         
     }
     catch (er) {
         yield put({ type: type.FETCH_DASHBOARD_DATA_FAILURE, payload: er })
+        yield put({type:loaderActions.LOADING_END,payload:false})
     }
 }
 

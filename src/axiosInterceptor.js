@@ -1,7 +1,7 @@
 import axios from "axios";
 
 let baseURL;
-baseURL = 'https://jsonplaceholder.typicode.com/';
+baseURL = 'http://localhost:4000';
 
 let Axios;
 
@@ -14,9 +14,11 @@ const init = () => {
 };
 
 const handleSuccessRequest = (request) => {
-  if (localStorage.getItem("auth-token"))
-    request.headers["auth-token"] = `${localStorage.getItem("auth-token")}`;
+  let token=localStorage.getItem("token")
+  if (token){
+    request.headers["auth_token"] = `${token}`;
   request.headers["api-url"] = baseURL;
+  }
   return request;
 };
 

@@ -11,6 +11,7 @@ import ReactTooltip from "react-tooltip";
 import { Clipboard } from 'react-bootstrap-icons';
 import { json, Navigate, useNavigate } from 'react-router-dom';
 import Header from "../Pages/utils/header"
+import * as loaderActions from "../redux/Actions/Loader"
 let QualificationRowformat =
     [
         { type: "text", md: 1, label: "Qualification", name: "qualification", validate: true, disable: false, set: false,validate:false },
@@ -117,11 +118,9 @@ function ApplicationForm(props) {
     
     function finalSubmit(){
         dispatch({type:applicationActions.CAREER_APPLICATION_SUBMIT_SAGA_REQUEST,payload:filtered});
-       
+        dispatch({type:loaderActions.LOADING_START,payload:true})
           
-        // setInterval(() => {
-        
-        // },3000);
+     
     }
     
     let validate = () => {
@@ -212,6 +211,7 @@ useEffect(()=>{
 },[])
 useEffect(()=>{
     if(filterd && filterd.id){   
+       
         navigate(`/Applicantpdf/${filterd.id}`);
       }
 },[filterd])
