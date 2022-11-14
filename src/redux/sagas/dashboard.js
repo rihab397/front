@@ -4,12 +4,8 @@ import * as type from "../Actions/dashboard"
 import * as loaderActions from "../Actions/Loader"
 
 import Axios from '../../axiosInterceptor';
-<<<<<<< HEAD
-import _, { values } from "lodash";
-=======
 import _ from "lodash";
 import { useDispatch } from "react-redux";
->>>>>>> 684381817d4a5d02befe980d2b51853d69c183b0
 // import { Label } from "reactstrap";
 
 

@@ -483,13 +483,6 @@ function ApplicationsReview(props) {
               </nav>
             }
           </CardFooter>
-<<<<<<< HEAD
-        </Collapse>
-
-      </Card>
-
-
-=======
            </Collapse>
         
         </Card>
@@ -498,7 +491,6 @@ function ApplicationsReview(props) {
 <Button onClick={()=>{dispatch({type:dashboardActions.FETCH_DASHBOARD_DATA_REQUEST});console.log("dd");
 dispatch({type:loaderActions.LOADING_START,payload:true})
 }}>test</Button>
->>>>>>> 684381817d4a5d02befe980d2b51853d69c183b0
 
     </>
   );
