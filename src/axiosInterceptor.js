@@ -16,7 +16,7 @@ const init = () => {
 const handleSuccessRequest = (request) => {
   let token=localStorage.getItem("token")
   if (token){
-    request.headers["auth_token"] = `${token}`;
+    request.headers["auth-token"] = `${token}`;
   request.headers["api-url"] = baseURL;
   }
   return request;

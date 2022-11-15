@@ -12,28 +12,34 @@ export default function Header(props) {
     let {isOpen}=useSelector((state) => state.header)
     let token=localStorage.getItem("token");
    let navigate= useNavigate();
-   if(!token){
-    navigate("/Login")
+   if(!token ){
+    if(!props.external){
+        navigate("/Login");
+        dispatch({type:types.HEADER_CLOSE_SIDEBAR})
+    }   
    }
    
     return(
         
-               <header className="header" id="header">
+               <header className="header bg-secondary text-light" id="header">
                 <div  style={{width:"100%"}}>
                     <Row>
                         <Col md="1">
-                    <button onClick={() => dispatch({type:types.SET_HEADER_OPEN_CLOSE_SIDEBAR,payload:!isOpen})}>
-                   <List />
-                    </button></Col>
+                            {
+                                !props.external && <button onClick={() => dispatch({ type :isOpen? types.HEADER_CLOSE_SIDEBAR:types.SET_HEADER_OPEN_SIDEBAR})}> <List /> </button>
+                            }
+                   </Col>
                     <Col md="4" >
                     {props.headerName && <h2>{props.headerName}</h2>}   
                      </Col> 
                      <Col md="1" className="offset-6">
-                        <button className="btn btn-danger" onClick={()=>{
+                     {
+                                !props.external &&  <button className="btn btn-danger" onClick={()=>{
                             localStorage.clear("token");
-                            dispatch({type:types.SET_HEADER_OPEN_CLOSE_SIDEBAR,payload:false})
+                            dispatch({type:types.HEADER_CLOSE_SIDEBAR})
                             navigate("/Login")
                         }}>Logout</button>
+                    }
                      </Col> 
 
                 </Row>      

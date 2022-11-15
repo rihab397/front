@@ -49,19 +49,19 @@ export default function Sidebar() {
 
         <>
     
-            <div className="l-navbar" id="nav-bar" style={{ width: isOpen ? "16rem" : "1rem", marginRight: isOpen ? "0rem" : "4rem" }}>
-                <nav className="nav">
+            <div className="l-navbar " id="nav-bar" style={{ width: isOpen ? "16rem" : "1rem", marginRight: isOpen ? "0rem" : "4rem" }}>
+                <nav className="nav bg-secondary">
                     <div>
                         {/* <a href="#" className="nav_logo"> <i className='bx bx-layer nav_logo-icon'></i> <span className="nav_logo-name">BBBootstrap</span> </a> */}
-                        <div className="nav_list">
+                        <div className="nav_list ">
                             <NavLink className="nav_link" to="/Dashboard">
                                 <i className='bx bx-user nav_icon'></i>
                                 <span className="nav_name">Dashboard</span>
                             </NavLink>
-                            <NavLink className="nav_link" to="/ApplicationForm">
+                            {/* <NavLink className="nav_link" to="/ApplicationForm">
                                 <i className='bx bx-user nav_icon'></i>
                                 <span className="nav_name">ApplicationForm</span>
-                            </NavLink>
+                            </NavLink> */}
                             <NavLink className="nav_link" to="/ApplicationsReview">
                                 <i className='bx bx-user nav_icon'></i>
                                 <span className="nav_name">ApplicationsReview</span>

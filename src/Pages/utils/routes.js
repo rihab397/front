@@ -3,12 +3,8 @@ import DynamicTable from "../DynamicTable";
 import ApplicationForm from "../ApplicantForm";
 import Applicantpdf from "../Applicantpdf"
 import ApplicationsReview from "../ApplicationsReview";
-<<<<<<< HEAD
-import Dashboard from "../Dashboard";
-import main from "../main";
-=======
 import Login from "../Login";
->>>>>>> 684381817d4a5d02befe980d2b51853d69c183b0
+import Dashboard from "../Dashboard"
 function Expenses() {
     return (
       <main style={{ padding: "1rem 0" }}>

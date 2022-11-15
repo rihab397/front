@@ -9,11 +9,11 @@ import * as applicationActions from "../redux/Actions/ApplicationForm"
 import jsPDF from 'jspdf';
 import { renderToString } from "react-dom/server"
 import "./utils/css/main.css"
-import axios from 'axios';
 import { ChevronDoubleRight, ChevronDoubleDown, Filter } from 'react-bootstrap-icons';
 // import _ from "lodash"
 import Header from "../Pages/utils/header"
 import * as loaderActions from "../redux/Actions/Loader"
+import Axios from "../axiosInterceptor"
 
 
 async function ApplicantpdfComponent(applicantData, flag) {
@@ -146,7 +146,7 @@ async function ApplicantpdfComponent(applicantData, flag) {
             // let x=new File(pdf.output(),"userProfilePdf")
             fd.set("userProfilePdf", blob)
             fd.set("id", String(appData["_id"]));
-            let result = await axios.post(`http://localhost:4000/Career/SaveUserProfilePdf`, fd);
+            let result = await Axios.post(`/Career/SaveUserProfilePdf`, fd);
             window.open(window.source)
           }
           else {
@@ -281,7 +281,7 @@ function ApplicationsReview(props) {
     setFromEndDate({ ...FromEndDate, [e.target.name]: e.target.value })
   }
   function downloadFile(fileName) {
-    axios.get("http://localhost:4000/Career/downloadFile",
+    Axios.get("/Career/downloadFile",
       {
         params: {
           fileName: fileName
@@ -304,7 +304,7 @@ function ApplicationsReview(props) {
 
   async function fetchAndSaveExcelDataOfApplicants() {
     if (Object.keys(FromEndDate).length > 0) {
-      let { data } = await axios.post("http://localhost:4000/Career/ApplicationCount", FromEndDate)
+      let { data } = await Axios.post("/Career/ApplicationCount", FromEndDate)
       if (data && data.fileName) {
         downloadFile(data.fileName)
       }
@@ -468,10 +468,7 @@ function ApplicationsReview(props) {
             }
           </CardBody>
           <CardFooter >
-            {
-              pageIndex
-            }
-
+            
             {
               pageNationArray.length && <nav aria-label="Page navigation example " >
                 <ul class="pagination">
@@ -488,9 +485,7 @@ function ApplicationsReview(props) {
         </Card>
      
   
-<Button onClick={()=>{dispatch({type:dashboardActions.FETCH_DASHBOARD_DATA_REQUEST});console.log("dd");
-dispatch({type:loaderActions.LOADING_START,payload:true})
-}}>test</Button>
+
 
     </>
   );

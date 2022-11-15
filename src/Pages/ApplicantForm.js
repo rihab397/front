@@ -12,6 +12,7 @@ import { Clipboard } from 'react-bootstrap-icons';
 import { json, Navigate, useNavigate } from 'react-router-dom';
 import Header from "../Pages/utils/header"
 import * as loaderActions from "../redux/Actions/Loader"
+import {toastr} from 'react-redux-toastr'
 let QualificationRowformat =
     [
         { type: "text", md: 1, label: "Qualification", name: "qualification", validate: true, disable: false, set: false,validate:false },
@@ -199,6 +200,9 @@ function ApplicationForm(props) {
       
 if(valid){
     setEnableSubmit(false)
+}
+else{
+    toastr.warning("Error","Please Fill out all the fields")
 }
     }
 useEffect(()=>{
@@ -530,7 +534,7 @@ useEffect(()=>{
         }
     }
     return (<>
-    <Header headerName="Appliaction form" />
+    <Header headerName="Appliaction form" external={true} />
         
         <form encType='muptipart/form-data'><Row><h1 style={{ textAlign: "center" }}>Application Form</h1></Row>
             <Row>

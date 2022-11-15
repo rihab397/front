@@ -115,7 +115,7 @@ a {
 }
 
 .nav_link:hover {
-    color: var(--white-color)
+    color: red
 }
 
 .nav_icon {
@@ -131,7 +131,9 @@ a {
 }
 
 .active {
-    color: var(--white-color)
+    color: black;
+    background-color: white;
+    
 }
 
 .active::before {

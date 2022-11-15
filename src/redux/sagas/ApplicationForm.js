@@ -43,12 +43,12 @@ function* callapi2(action) {
           if(action.payload){
            let  id=action.payload
      
-            let result = yield axios.post(`http://localhost:4000/Career/ApplicationGet`,{id:id});
+            let result = yield Axios.post(`/Career/ApplicationGet`,{id:id});
               
             yield put({ type: type.CAREER_APPLICATION_GET_DATA_SUCCESS, payload:result.data})
           }
           else{
-            let result = yield axios.get(`http://localhost:4000/Career/fetchAllApplicant`);
+            let result = yield Axios.get(`/Career/fetchAllApplicant`);
             yield put({ type: type.CAREER_FETCH_ALL_APPLICATION_DATA_SUCCESS, payload:result.data})
           }
     }

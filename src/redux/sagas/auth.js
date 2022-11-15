@@ -5,6 +5,7 @@ import * as auth from "../Actions/auth"
 import _ from "lodash";
 // import { Label } from "reactstrap";
 import * as loaderActions from "../Actions/Loader"
+import { toastr } from "react-redux-toastr";
 
 
 function* callapi(action) {
