@@ -183,6 +183,7 @@ function ApplicationsReview(props) {
   let [pageIndex, setPageIndex] = useState(0);
   let [collapse1, setCollapse1] = useState(true);
   let [collapse2, setCollapse2] = useState(true);
+  let [localApplicants,setLocalApplicants]=useState([])
 
 
 
@@ -211,11 +212,13 @@ function ApplicationsReview(props) {
 
 
     }
+
   }, [filterd])
   let [selectedRow, setSelectedRow] = useState([])
   function pageNation(filterd) {
     if (filterd && filterd.allApplicants && filterd.allApplicants.length) {
-      let data = filterd.allApplicants
+      
+      let data = localApplicants.length?localApplicants: filterd.allApplicants
       let arr = [];
       for (let i = 0; i < data.length; i += pageNationCount) {
         if (data.length - i >= pageNationCount) {
@@ -235,7 +238,7 @@ function ApplicationsReview(props) {
   }
   useEffect(() => {
     pageNation(filterd)
-  }, [filterd, pageNationCount])
+  }, [filterd, pageNationCount,localApplicants])
 
   function searchFilter(e) {    //throtal function
     let timer;
@@ -364,7 +367,8 @@ function ApplicationsReview(props) {
                         className="form-control"
                         onChange={(e) => {
                           let temp = pageNationArray[pageIndex];
-                          setSelectedRow(temp.filter(app => app.Category == e.target.value))
+                          // setSelectedRow(temp.filter(app => app.Category == e.target.value));
+                          setLocalApplicants(filterd.allApplicants.filter(app => app.Category == e.target.value))
                           setCategoryFilter(e.target.value)
                         }}>
                         <option style={{ display: "none" }} ></option>
@@ -380,7 +384,8 @@ function ApplicationsReview(props) {
                       {
                         CategoryFilter && <Button className="btn btn-danger" onClick={() => {
                           setCategoryFilter("");
-                          setSelectedRow(pageNationArray[pageIndex]);
+                          // setSelectedRow(pageNationArray[pageIndex]);
+                          setLocalApplicants(filterd.allApplicants)
                         }}>
                           Clear Filter
                           <Filter size={20} color="white" />
