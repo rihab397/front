@@ -25,9 +25,9 @@ function* callapi(action) {
                 }
              }).length;
 
-            let gender={male:0,Female:0,Trans_Gender:0}
+            let gender={Male:0,Female:0,Trans_Gender:0}
               dataCopy.forEach(element => {
-                if(element.Gender=="Male")   gender={...gender,male:gender["male"]+1}
+                if(element.Gender=="Male")   gender={...gender,Male:gender["Male"]+1}
                 if(element.Gender=="Female")   gender={...gender,Female:gender["Female"]+1}
                 if(element.Gender=="Trans-Gender" )  gender={...gender,Trans_Gender:gender["Trans_Gender"]+1}
              });

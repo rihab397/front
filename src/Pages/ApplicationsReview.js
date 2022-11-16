@@ -178,7 +178,7 @@ function ApplicationsReview(props) {
   let [modalView, setmodalView] = useState(false)
   let filterd = useSelector((state) => state.Carrer)
   let [flag, setflag] = useState()
-  let [pageNationCount, setPagenationCount] = useState(2);
+  let [pageNationCount, setPagenationCount] = useState(4);
   let [pageNationArray, setpageNationArray] = useState([])
   let [pageIndex, setPageIndex] = useState(0);
   let [collapse1, setCollapse1] = useState(true);
@@ -334,7 +334,7 @@ function ApplicationsReview(props) {
       <br />
       <Card>
         <CardHeader className="bg-secondary" > <Row><Col md={7} className="text-light">
-          <span style={{ fontSize: "15px" }}>Filters and Excel Data</span> &nbsp;&nbsp;
+          <span style={{ fontSize: "20px" }}>Filters and Excel Data</span> &nbsp;&nbsp;
           {collapse1 ? <ChevronDoubleDown onClick={() => setCollapse1(!collapse1)} /> : <ChevronDoubleRight onClick={() => setCollapse1(!collapse1)} />}
 
         </Col></Row></CardHeader>
@@ -343,19 +343,22 @@ function ApplicationsReview(props) {
             <Row>
               <Row>
                 <Col >
-                  <label for="setDates">Find Applicants of a particular Date</label>
+
+
                   <Row>
                     <Col md="6">
+                      <label for="setDates">Find Applicants of a particular Date</label>
+
                       <Row><InputGroup className="formControl">
                         {returnControl("datetime-local", "fromDate", "fromDate", 3, setDates)}
                         <Col>&nbsp;</Col>
                         <Col><p>To</p></Col>
                         {returnControl("datetime-local", "EndDate", "EndDate", 3, setDates)}
                       </InputGroup></Row></Col>
-                    <Col><Button color="danger" onClick={() => fetchAndSaveExcelDataOfApplicants()}>Save</Button></Col>
+                    <Col><Col>&nbsp;</Col><Button color="danger" onClick={() => fetchAndSaveExcelDataOfApplicants()}>Save</Button></Col>
                     <Col>
-                     
 
+                      <label className="ml-5">Category Filter</label>
                       <select
                         placeholder="Select here"
                         className="form-control"
@@ -373,6 +376,7 @@ function ApplicationsReview(props) {
                       </select>
                     </Col>
                     <Col>
+                      <Col>&nbsp;</Col>
                       {
                         CategoryFilter && <Button className="btn btn-danger" onClick={() => {
                           setCategoryFilter("");
@@ -407,7 +411,7 @@ function ApplicationsReview(props) {
         <CardHeader className="bg-secondary" >
           <Row>
             <Col md={7} className="text-light">
-              <span style={{ fontSize: "15px" }}>Applicant Data</span> &nbsp;&nbsp;
+              <span style={{ fontSize: "20px" }}>Applicant Data</span> &nbsp;&nbsp;
               {collapse2 ? <ChevronDoubleDown onClick={() => setCollapse2(!collapse2)} /> : <ChevronDoubleRight onClick={() => setCollapse2(!collapse2)} />}
 
             </Col>
@@ -436,9 +440,9 @@ function ApplicationsReview(props) {
               <table className="table table-borderd">
                 <thead className="bg-primary text-light"><tr>{
                   Object.keys(_.head(_.cloneDeep(selectedRow).filter((val) => delete val["Resume"]))).map(val => (
-                    <td>{val}</td>
+                    <td>{String(val).replace("_", " ").charAt(0).toUpperCase() + String(val).replace("_", " ").slice(1, val.length)}</td>
                   ))
-                }<td>options</td></tr></thead>
+                }<td>Profile Options</td></tr></thead>
                 {
                   _.cloneDeep(selectedRow).filter((val) => delete val["Resume"]).map((row, index) => {
                     return (<tr>
@@ -446,7 +450,7 @@ function ApplicationsReview(props) {
                         Object.values(row).map(colValue => (
                           <td>{colValue}</td>
                         ))}
-                      <td>
+                      <td className="d-flex justify-content-evenly">
                         <button
                           className="btn btn-primary text-dark"
                           onClick={() => { setflag(1); getSingleApplicant(row["_id"]); console.log("helllo") }}
@@ -460,6 +464,7 @@ function ApplicationsReview(props) {
                           onClick={() => downloadFile(selectedRow[index]["Resume"])}>
                           Resume</button>
                       </td>
+
                     </tr>)
                   })
                 }
@@ -468,7 +473,7 @@ function ApplicationsReview(props) {
             }
           </CardBody>
           <CardFooter >
-            
+
             {
               pageNationArray.length && <nav aria-label="Page navigation example " >
                 <ul class="pagination">
@@ -480,11 +485,11 @@ function ApplicationsReview(props) {
               </nav>
             }
           </CardFooter>
-           </Collapse>
-        
-        </Card>
-     
-  
+        </Collapse>
+
+      </Card>
+
+
 
 
     </>
