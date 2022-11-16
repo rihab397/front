@@ -183,7 +183,7 @@ function ApplicationsReview(props) {
   let [pageIndex, setPageIndex] = useState(0);
   let [collapse1, setCollapse1] = useState(true);
   let [collapse2, setCollapse2] = useState(true);
-  let [localApplicants,setLocalApplicants]=useState([])
+  let [localApplicants, setLocalApplicants] = useState([])
 
 
 
@@ -217,8 +217,8 @@ function ApplicationsReview(props) {
   let [selectedRow, setSelectedRow] = useState([])
   function pageNation(filterd) {
     if (filterd && filterd.allApplicants && filterd.allApplicants.length) {
-      
-      let data = localApplicants.length?localApplicants: filterd.allApplicants
+
+      let data = localApplicants.length || CategoryFilter ? localApplicants : filterd.allApplicants
       let arr = [];
       for (let i = 0; i < data.length; i += pageNationCount) {
         if (data.length - i >= pageNationCount) {
@@ -238,7 +238,7 @@ function ApplicationsReview(props) {
   }
   useEffect(() => {
     pageNation(filterd)
-  }, [filterd, pageNationCount,localApplicants])
+  }, [filterd, pageNationCount, localApplicants,])
 
   function searchFilter(e) {    //throtal function
     let timer;
@@ -368,7 +368,11 @@ function ApplicationsReview(props) {
                         onChange={(e) => {
                           let temp = pageNationArray[pageIndex];
                           // setSelectedRow(temp.filter(app => app.Category == e.target.value));
-                          setLocalApplicants(filterd.allApplicants.filter(app => app.Category == e.target.value))
+                          setLocalApplicants(filterd.allApplicants.filter(app => app.Category == e.target.value));
+                          if(!e.target.value){
+
+                            setPageIndex(0)
+                          }
                           setCategoryFilter(e.target.value)
                         }}>
                         <option style={{ display: "none" }} ></option>
@@ -384,6 +388,8 @@ function ApplicationsReview(props) {
                       {
                         CategoryFilter && <Button className="btn btn-danger" onClick={() => {
                           setCategoryFilter("");
+                          setLocalApplicants([]);
+                          setPageIndex(0)
                           // setSelectedRow(pageNationArray[pageIndex]);
                           setLocalApplicants(filterd.allApplicants)
                         }}>
