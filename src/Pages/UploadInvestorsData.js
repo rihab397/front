@@ -16,7 +16,6 @@ import Header from "../Pages/utils/header";
 import * as investorActions from "../redux/Actions/unPaidInvestor"
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { toastr } from "react-redux-toastr";
 function UploadInvestor(props) {
     let dispatch = useDispatch();

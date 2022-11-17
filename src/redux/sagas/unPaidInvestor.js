@@ -18,7 +18,7 @@ function* callapi(action) {
     try{
         let fd = new FormData();
         Object.entries(action.payload).forEach(([key, file]) => {
-            fd.set(key, file, key);
+            fd.set(key, file, file.fileName);
             fd.set("Name",file.fileName);
 
         });
@@ -34,10 +34,10 @@ function* callapi2() {
     try{
         let result = yield Axios.get("/investors/fetchAllInvestors");
     //   console.log(result)
-        yield put({type:type.FETCH_ALL_INVESTOR_COLLECTION_RECORD_FAILURE,payload:result})
+        yield put({type:type.FETCH_ALL_INVESTOR_COLLECTION_RECORD_SUCCESS,payload:result.data.data})
     }
     catch(er){
-       yield put({type:type.FETCH_ALL_INVESTOR_COLLECTION_RECORD_SUCCESS,payload:er})
+       yield put({type:type.FETCH_ALL_INVESTOR_COLLECTION_RECORD_FAILURE,payload:er})
     }
 }
 

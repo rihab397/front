@@ -25,24 +25,28 @@ function InvestorViewPage(props) {
      dispatch({type:investorActions.FETCH_ALL_INVESTOR_COLLECTION_RECORD_REQUEST})
     },[])
     let {investors}=useSelector((state)=>state.unPaidInvestor)
+    let navigate=useNavigate()
     function fetchSingleRecord(id) {
-        
+        navigate(`/ShowInvestorData/${id}`)
     }
 
     return (<>
         <Header headerName="Investor View Page" />
         <br />
         <Card>
+            {
+                    JSON.stringify(investors)
+            }
             <CardHeader className="bg-secondary text-light" >
                 <Label for="Please Click on the Link to View Record" style={{fontSize:"20px"}} >Please Click on the Link to View Record</Label>
                 </CardHeader>
                 <CardBody>
                     {
-                        investors && investors.length>0 && investors.map(invRecord=>{
+                        investors && investors.length>0 && investors.map(invRecord=>(
                             <Row>
-                               <NavLink  onClick={(e)=>{fetchSingleRecord(invRecord["_id"])}}>{invRecord.Name}</NavLink>
+                               <NavLink  className="text-primary" style={{cursor:"pointer"}} onClick={(e)=>{fetchSingleRecord(invRecord["_id"])}}>{invRecord.Name}</NavLink>
                             </Row>
-                        })
+                        ))
                     }                               
                 </CardBody>
           

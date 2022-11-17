@@ -7,6 +7,7 @@ import Login from "../Login";
 import Dashboard from "../Dashboard"
 import UploadInvestor from "../UploadInvestorsData";
 import InvestorViewPage from "../InvestorViewPage";
+import ShowInvestorData from "../showInvestorData";
 
 
 export function Routers(params) {
@@ -20,5 +21,6 @@ export function Routers(params) {
         <Route path="/Login" className="nav_link" element={<Login />} />
         <Route path="/UploadInvestor" className="nav_link" element={<UploadInvestor />} />
         <Route path="/InvestorViewPage" className="nav_link" element={<InvestorViewPage />} />
+        <Route path="/ShowInvestorData/:id" className="nav_link" element={<ShowInvestorData />} />
     </Routes>)
 }
