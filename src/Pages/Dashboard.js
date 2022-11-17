@@ -9,6 +9,7 @@ import { PersonBoundingBox, GenderAmbiguous, Calendar2, CalendarEventFill, Chevr
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import { toastr } from "react-redux-toastr";
+import * as loaderActions from "../redux/Actions/Loader"
 
 
 
@@ -27,8 +28,9 @@ function Dashboard() {
     useEffect(() => {
         if (!(data && data.chartData)) {
             dispatch({ type: dashboardActions.FETCH_DASHBOARD_DATA_REQUEST });
+            dispatch({type:loaderActions.LOADING_START,payload:true})
         }
-        toastr.error("error", "something is wrong")
+  
 
     }, [])
     useEffect(() => {

@@ -7,6 +7,7 @@ import {header} from "./header"
 import { dashboardData } from "./dashboard";
 import Loader from "./Loader";
 import { Auth } from "./auth";
+import { unPaidInvestor } from "./unPaidInvestor";
 import toastr from "./toastr";
 
 export default combineReducers({
@@ -18,5 +19,6 @@ export default combineReducers({
   dashboardData,
   Loader,
   Auth,
-  toastr
+  toastr,
+  unPaidInvestor
 })

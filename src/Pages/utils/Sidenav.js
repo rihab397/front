@@ -66,6 +66,10 @@ export default function Sidebar() {
                                 <i className='bx bx-user nav_icon'></i>
                                 <span className="nav_name">ApplicationsReview</span>
                             </NavLink>
+                            <NavLink className="nav_link" to="/uploadInvestor">
+                                <i className='bx bx-user nav_icon'></i>
+                                <span className="nav_name">uploadInvestor</span>
+                            </NavLink>
                             {/* <NavLink className="nav_link" to="/Applicantpdf">
                                 <i className='bx bx-user nav_icon'></i>
                                 <span className="nav_name">Applicantpdf</span>
