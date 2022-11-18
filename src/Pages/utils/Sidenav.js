@@ -50,10 +50,10 @@ export default function Sidebar() {
         <>
     
             <div className="l-navbar " id="nav-bar" style={{ width: isOpen ? "16rem" : "1rem", marginRight: isOpen ? "0rem" : "4rem" }}>
-                <nav className="nav bg-secondary">
+                <nav className="nav " style={{background:"#34475F"}}>
                     <div>
-                        {/* <a href="#" className="nav_logo"> <i className='bx bx-layer nav_logo-icon'></i> <span className="nav_logo-name">BBBootstrap</span> </a> */}
-                        <div className="nav_list ">
+                        {/* <img src="http://localhost:4000/images/imagess.jpg" width={"240"} /> */}
+                        <div className="nav_list mt-0">
                             <NavLink className="nav_link" to="/Dashboard">
                                 <i className='bx bx-user nav_icon'></i>
                                 <span className="nav_name">Dashboard</span>

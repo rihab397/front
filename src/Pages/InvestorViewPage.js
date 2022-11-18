@@ -31,12 +31,10 @@ function InvestorViewPage(props) {
     }
 
     return (<>
-        <Header headerName="Investor View Page" />
+        <Header headerName="Investor View Page" external={true} />
         <br />
         <Card>
-            {
-                    JSON.stringify(investors)
-            }
+            
             <CardHeader className="bg-secondary text-light" >
                 <Label for="Please Click on the Link to View Record" style={{fontSize:"20px"}} >Please Click on the Link to View Record</Label>
                 </CardHeader>

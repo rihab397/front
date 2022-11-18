@@ -5,7 +5,7 @@ import { Table, Button, Row, Col, Card, Modal, ModalHeader, ModalBody, ModalFoot
 import { useDispatch, useSelector } from "react-redux"
 import * as dashboardActions from "../redux/Actions/dashboard"
 import Header from "./utils/header";
-import { PersonBoundingBox, GenderAmbiguous, Calendar2, CalendarEventFill, ChevronDoubleRight, ChevronDoubleDown, } from 'react-bootstrap-icons';
+import { PersonSquare, GenderAmbiguous, Calendar2, CalendarEventFill, ChevronDoubleRight, ChevronDoubleDown, } from 'react-bootstrap-icons';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import { toastr } from "react-redux-toastr";
@@ -67,16 +67,17 @@ function Dashboard() {
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
+                  
                     'rgba(153, 102, 255, 0.2)',
+                    'rgba(255,255,255,0.2)'
                 ],
                 borderColor: [
                     'rgba(255, 99, 132, 1)',
                     'rgba(54, 162, 235, 1)',
                     'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
+                 
                     'rgba(153, 102, 255, 1)',
+                    'rgba(255,255,255,1)'
                 ],
                 borderWidth: 1,
             },
@@ -99,7 +100,7 @@ function Dashboard() {
         }
 
     }
-    let keys = { allApplicants: ["Total Applicant", <Calendar2 size={100} />], currentMonthApplier: ["Current Month Applier", <CalendarEventFill size={100} />], todayApplier: ["Today Applier", <Calendar2 size={100} />], gender: ["Gender", <GenderAmbiguous size={100} />] }
+    let keys = { allApplicants: ["Total Applicant", <Calendar2 size={100} />], currentMonthApplier: ["Current Month Applier", <CalendarEventFill size={100} />], todayApplier: ["Today Applier", <PersonSquare size={100} />], gender: ["Gender", <GenderAmbiguous size={100} />] }
     return (<>
         <Header headerName="Dashboard" />
       

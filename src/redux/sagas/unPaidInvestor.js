@@ -17,10 +17,11 @@ function* callapi(action) {
     // let x=action;
     try{
         let fd = new FormData();
-        Object.entries(action.payload).forEach(([key, file]) => {
-            fd.set(key, file, file.fileName);
-            fd.set("Name",file.fileName);
-
+        Object.entries(action.payload).forEach(([key, value]) => {
+            if(value.name){
+                fd.set(key, value, value.name); //for file content
+            }
+            fd.set(key,value); //for normal key value
         });
         let result = yield Axios.post("/investors/uploadInvestorFile",fd);
         yield put({type:type.UPLOAD_FILEDATA_SUCCESS,payload:result})

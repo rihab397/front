@@ -24,7 +24,7 @@ function* callapi(action) {
             }
           })
          
-            let result = yield Axios(`/Career/Save`,fd);
+            let result = yield Axios.post(`/Career/Save`,fd);
             
             yield put({ type: type.CAREER_APPLICATION_SUBMIT_SUCCESS, payload:result.data})
             yield put({type:loaderActions.LOADING_END,payload:false})

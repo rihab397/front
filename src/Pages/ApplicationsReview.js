@@ -220,12 +220,13 @@ function ApplicationsReview(props) {
 
       let data = localApplicants.length || CategoryFilter ? localApplicants : filterd.allApplicants
       let arr = [];
-      for (let i = 0; i < data.length; i += pageNationCount) {
+      for (let i = 0; i < data.length; i += parseInt( pageNationCount)) {
+        let data2=_.cloneDeep(data)
         if (data.length - i >= pageNationCount) {
-          arr.push(data.slice(i, i + pageNationCount))
+          arr.push(data2.slice(i, i +parseInt(  pageNationCount)))
         }
         else {
-          arr.push(data.slice(i, data.length))
+          arr.push(data2.slice(i, data.length))
           break;
         }
       }
@@ -366,10 +367,8 @@ function ApplicationsReview(props) {
                         placeholder="Select here"
                         className="form-control"
                         onChange={(e) => {
-                          let temp = pageNationArray[pageIndex];
-                          // setSelectedRow(temp.filter(app => app.Category == e.target.value));
                           setLocalApplicants(filterd.allApplicants.filter(app => app.Category == e.target.value));
-                          if(!e.target.value){
+                         {
 
                             setPageIndex(0)
                           }

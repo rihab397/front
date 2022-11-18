@@ -26,7 +26,7 @@ function UploadInvestor(props) {
     }
     function addFileData(e) {
         if (e.target.files.length) {
-            setFile({ [e.target.name]: e.target.files[0] });
+            setFile({ ...file,[e.target.name]: e.target.files[0] });
         }
     }
 
@@ -40,8 +40,16 @@ function UploadInvestor(props) {
                 <CardBody>
                     <div style={{ height: "30%", width: "100%", display: "flex", alignItems: "center", justifyContent: "center" }}>
                         <Form action="#"method="post" enctype="multipart/form-data">
-                          <Row><Col md="7"> <input accept=".xlsx,application/JSON" type="file" name="investorFile" className="form-control" required onChange={e => addFileData(e)} /></Col>
-                            <Col><Button id="btn" class="btn btn-primary"  onClick={(e) =>{e.preventDefault(); handleSubmit(e)}} >submit</Button></Col>
+                            <Row>
+                            <Col md="4">
+                            <Label>Enter text for genrate link</Label>
+                            <input type={"text"} className="form-control"  name="Name" onChange={(e)=>  setFile({ ...file,[e.target.name]: e.target.value })} />
+                           </Col>
+                           <Col md="5"> 
+                           <Label>Choose a file of Investor Data</Label>                           
+                           <input accept=".xlsx,application/JSON" type="file" name="investorFile" className="form-control" required onChange={e => addFileData(e)} /></Col>
+                            <Col>
+                            <Button id="btn" class="btn btn-secondary " style={{marginTop:"2rem"}} onClick={(e) =>{e.preventDefault(); handleSubmit(e)}} >submit</Button></Col>
                             </Row> 
                         </Form>
                     </div>

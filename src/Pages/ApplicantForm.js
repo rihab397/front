@@ -534,7 +534,7 @@ useEffect(()=>{
         }
     }
     return (<>
-    <Header headerName="Appliaction form" external={true} />
+    <Header headerName="Carreer form" external={true} />
         
         <form encType='muptipart/form-data'><Row><h1 style={{ textAlign: "center" }}>Application Form</h1></Row>
             <Row>
