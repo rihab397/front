@@ -247,16 +247,20 @@ function ApplicationsReview(props) {
       if (timer) timer = 0
       else timer = setTimeout(() => {
         if (e.target.value) {
-          let temp = _.cloneDeep(pageNationArray[pageIndex]).filter(v => {
+          let temp = _.cloneDeep(filterd.allApplicants).filter(v => {
             let expr = new RegExp(e.target.value, "i")
             if (expr.test(v.Company_Name) || expr.test(v.First_Name) || expr.test(v.Post_Applied) || expr.test(v.Category) || expr.test(v._id)) {
               return v
             }
           })
-          setSelectedRow(temp)
+          // setSelectedRow(temp)
+          setPageIndex(0)
+          setLocalApplicants(temp)
         }
         else {
-          setSelectedRow(_.cloneDeep(pageNationArray)[pageIndex])
+          setPageIndex(0)
+          setLocalApplicants([]);
+          setSelectedRow(_.cloneDeep(pageNationArray)[0])
         }
       }, 1000);
     }

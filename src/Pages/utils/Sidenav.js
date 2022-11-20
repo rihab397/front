@@ -6,7 +6,8 @@ import {
     useNavigate,
     NavLink
 } from "react-router-dom";
-import "./css/style.css"
+import "./css/style.css";
+import  {HouseDoorFill, EyeFill,Upload } from "react-bootstrap-icons";
 
 export default function Sidebar() {
     // let [isOpen, setIsOpen] = useState(false)
@@ -54,26 +55,17 @@ export default function Sidebar() {
                     <div>
                         {/* <img src="http://localhost:4000/images/imagess.jpg" width={"240"} /> */}
                         <div className="nav_list mt-0">
-                            <NavLink className="nav_link" to="/Dashboard">
-                                <i className='bx bx-user nav_icon'></i>
-                                <span className="nav_name">Dashboard</span>
+                            <div>
+                             <NavLink className="nav_link " to="/Dashboard">
+                                <span className="nav_name d-flex justify-content-between"> <HouseDoorFill size="20" color="black" /> &nbsp; Dashboard</span>
                             </NavLink>
-                            {/* <NavLink className="nav_link" to="/ApplicationForm">
-                                <i className='bx bx-user nav_icon'></i>
-                                <span className="nav_name">ApplicationForm</span>
-                            </NavLink> */}
+                            </div>
                             <NavLink className="nav_link" to="/ApplicationsReview">
-                                <i className='bx bx-user nav_icon'></i>
-                                <span className="nav_name">ApplicationsReview</span>
+                                <span className="nav_name d-flex justify-content-between"> <EyeFill size="20" color="black" /> &nbsp;ApplicationsReview</span>
                             </NavLink>
                             <NavLink className="nav_link" to="/uploadInvestor">
-                                <i className='bx bx-user nav_icon'></i>
-                                <span className="nav_name">uploadInvestor</span>
+                                <span className="nav_name d-flex justify-content-between"> <Upload size="20" color="black" />&nbsp; uploadInvestor</span>
                             </NavLink>
-                            {/* <NavLink className="nav_link" to="/Applicantpdf">
-                                <i className='bx bx-user nav_icon'></i>
-                                <span className="nav_name">Applicantpdf</span>
-                            </NavLink> */}
                         </div>
                     </div> <a href="#" className="nav_link"> <i className='bx bx-log-out nav_icon'></i> <span className="nav_name">SignOut</span> </a>
                 </nav>
@@ -85,40 +77,3 @@ export default function Sidebar() {
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  {/* <NavLink className="nav_link" to="/">
-                                <i className='bx bx-grid-alt nav_icon'></i>
-                                <span className="nav_name">Dashboard</span>
-                            </NavLink>
-                            <NavLink className="nav_link" to="/expenses">
-                                <i className='bx bx-user nav_icon'></i>
-                                <span className="nav_name">Expenses</span>
-                            </NavLink>
-                            <NavLink className="nav_link" to="/invoices">
-                                <i className='bx bx-user nav_icon'></i>
-                                <span className="nav_name">invoices</span>
-                            </NavLink>
-                            <NavLink className="nav_link" to="/DynamicTable">
-                                <i className='bx bx-user nav_icon'></i>
-                                <span className="nav_name">DynamicTable</span>
-                            </NavLink> */}

@@ -31,7 +31,15 @@ const handleSuccess = (response) => {
 };
 
 const handleError = (error) => {
-  return Promise.reject(error.response);
+  if(error.response.status==401){
+    localStorage.clear("token");
+    window.location.href="/Login"
+  }
+  else{
+
+    return Promise.reject(error.response);
+  }
+
 };
 
 init();
