@@ -11,6 +11,7 @@ import { renderToString } from "react-dom/server"
 import "./utils/css/main.css"
 import { ChevronDoubleRight, ChevronDoubleDown, Filter } from 'react-bootstrap-icons';
 // import _ from "lodash"
+import Footer from "./utils/footer";
 import Header from "../Pages/utils/header"
 import * as loaderActions from "../redux/Actions/Loader"
 import Axios from "../axiosInterceptor"
@@ -218,7 +219,7 @@ function ApplicationsReview(props) {
   function pageNation(filterd) {
     if (filterd && filterd.allApplicants && filterd.allApplicants.length) {
 
-      let data = localApplicants.length || CategoryFilter ? localApplicants : filterd.allApplicants
+      let data = (localApplicants.length || CategoryFilter) ? localApplicants : filterd.allApplicants
       let arr = [];
       for (let i = 0; i < data.length; i += parseInt( pageNationCount)) {
         let data2=_.cloneDeep(data)
@@ -505,7 +506,7 @@ function ApplicationsReview(props) {
 
 
 
-
+  <Footer />
     </>
   );
 }

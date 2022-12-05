@@ -1,7 +1,8 @@
 
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import * as types from "../../redux/Actions/header";
 import {
     useNavigate,
     NavLink
@@ -10,6 +11,8 @@ import "./css/style.css";
 import  {HouseDoorFill, EyeFill,Upload } from "react-bootstrap-icons";
 
 export default function Sidebar() {
+    let navigate=useNavigate()
+    let dispatch=useDispatch();
     // let [isOpen, setIsOpen] = useState(false)
     document.addEventListener("DOMContentLoaded", function (event) {
 
@@ -67,7 +70,11 @@ export default function Sidebar() {
                                 <span className="nav_name d-flex justify-content-between"> <Upload size="20" color="black" />&nbsp; uploadInvestor</span>
                             </NavLink>
                         </div>
-                    </div> <a href="#" className="nav_link"> <i className='bx bx-log-out nav_icon'></i> <span className="nav_name">SignOut</span> </a>
+                    </div> <a href="#" className="nav_link" onClick={()=>{
+                          localStorage.clear("token");
+                          dispatch({type:types.HEADER_CLOSE_SIDEBAR})
+                          navigate("/Login")
+                    }}> <i className='bx bx-log-out nav_icon'></i> <span className="nav_name">SignOut</span> </a>
                 </nav>
             </div>
 

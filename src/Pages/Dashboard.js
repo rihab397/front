@@ -10,7 +10,8 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import { toastr } from "react-redux-toastr";
 import * as loaderActions from "../redux/Actions/Loader"
-
+import Footer from "./utils/footer";
+import "./utils/css/dataCard.css"
 
 
 
@@ -117,7 +118,7 @@ function Dashboard() {
                         {dataCards.length > 0 &&
                             dataCards.map(val => (
                                 <Col>
-                                    <Card className="bg-secondary border-0 mt-5">
+                                    <Card className="bg-secondary border-0 mt-5 " id="dataCard">
                                         <CardBody className="bg-light text-center">
                                             {
                                                 val.icon
@@ -165,6 +166,8 @@ function Dashboard() {
                     }</CardBody></Collapse>
         </Card>
 
+
+<Footer />
 
     </>)
 }
